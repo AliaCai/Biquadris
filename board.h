@@ -17,6 +17,8 @@ class Board {
     bool is_block_valid();
     void update_display();
     void clear_last_line();
+    Board(int score, int level, int width, int height, int highscore);
+    ~Board(); //not sure if needed
 
 };
 

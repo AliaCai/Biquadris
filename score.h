@@ -8,6 +8,7 @@ class Score {
 
     public:
     int cumulative_hs();
+    Score(int score, int highscore);
 };
 
 #endif

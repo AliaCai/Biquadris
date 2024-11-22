@@ -14,6 +14,7 @@ class Game {
     void reset();
     Board* get_board();
     int get_turn();
+    Game(Board* b1, Board* b2, int turn);
 };
 
 #endif
