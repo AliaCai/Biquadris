@@ -1,3 +1,3 @@
 include <iostream>
 
-    // Testing 2
+int main() {}

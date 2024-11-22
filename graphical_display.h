@@ -1,5 +1,5 @@
-#ifndef GRAPHICAL_DISP_H
-#define GRAPHICAL_DISP_H
+#ifndef GRAPHICAL_DISPLAY_H
+#define GRAPHICAL_DISPLAY_H
 #include "observer.h"
 #include "window.h"
 #include "board.h"
