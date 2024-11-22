@@ -12,7 +12,7 @@ class Block {
     virtual int get_position() = 0;
     virtual void set_position() = 0;
     virtual ~Block() = default;
-    
+
 };
 
 #endif

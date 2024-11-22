@@ -6,7 +6,6 @@
 
 class Board {
     int score, level, width, height, highscore;
-    Game* game;
 
     public:
     int get_score();
