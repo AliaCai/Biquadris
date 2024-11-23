@@ -6,16 +6,17 @@
 using namespace std;
 
 class IBlock: public Block{
-    vector<vector<int>> iblock;
+    
     int num_rot;
     int pos;
+    vector<vector<vector<int>>> iblock;
 
     public:
-    IBlock(int num_rot, int pos, vector<vector<int>> iblock); 
-    vector<vector<int>> get_block() override;
-    vector<vector<int>> find_rotation() override;
-    int get_position() override;
-    void set_position() override;
+    IBlock(); 
+    vector<vector<int>> getShape() const override;
+    vector<vector<int>> find_rotation(int num_rot) const override;
+    int get_position() const override;
+    void set_position(int newPos) override;
 };
 
 #endif
