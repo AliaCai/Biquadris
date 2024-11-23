@@ -9,6 +9,7 @@ class IBlock: public Block{
     
     int num_rot;
     int pos;
+    char type;
     vector<vector<vector<int>>> iblock;
 
     public:
@@ -17,6 +18,7 @@ class IBlock: public Block{
     vector<vector<int>> find_rotation(int num_rot) const override;
     int get_position() const override;
     void set_position(int newPos) override;
+    char get_type() const override;
 };
 
 #endif

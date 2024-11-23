@@ -1,4 +1,10 @@
 #include "i_block.h"
+#include "o_block.h"
+#include "l_block.h"
+#include "s_block.h"
+#include "t_block.h"
+#include "z_block.h"
+#include "j_block.h"
 #include "block.h"
 #include <iostream>
 #include <memory>
@@ -6,29 +12,43 @@
 using namespace std;
 
 int main() {
-    unique_ptr<Block> iblock = make_unique<IBlock>();
-
+    vector<unique_ptr<Block>> blocks;
+    blocks.push_back(make_unique<IBlock>());
+    blocks.push_back(make_unique<OBlock>());
+    blocks.push_back(make_unique<LBlock>()); 
+    blocks.push_back(make_unique<SBlock>());   
+    blocks.push_back(make_unique<TBlock>());  
+    blocks.push_back(make_unique<ZBlock>());   
+    blocks.push_back(make_unique<JBlock>());     
     // Print the initial shape
-    auto shape = iblock->getShape(); //vector<vector<int>> 
-    for (const auto& row : shape) {
-        for (int cell : row) {
-            if (cell == 1) std::cout << cell << " ";
+    for (auto it = blocks.begin(); it != blocks.end(); ++it) {
+        char type = (*it)->get_type(); 
+        cout << type << endl;
+        
+        auto shape = (*it)->getShape();
+        for (const auto& row : shape) {
+            for (int cell : row) {
+                if (cell == 1) cout << type;
+                else if (cell == -1) cout << " ";
+            }
+            cout << endl;
         }
-        std::cout << std::endl;
-    }
 
-    cout << endl;
+        cout << endl;
 
-    // Rotate the block and print the new shape
-    shape = iblock->find_rotation(1);
-    std::cout << "After rotation:\n";
-    for (const auto& row : shape) {
-        for (int cell : row) {
-            if (cell == 1) std::cout << cell << " ";
+        // Rotate the block and print the new shape
+        shape = (*it)->find_rotation(3);
+        std::cout << "After rotation:\n";
+        for (const auto& row : shape) {
+            for (int cell : row) {
+                if (cell == 1) cout << type;
+                else if (cell == -1) cout << " ";
+            }
+            cout << endl;
         }
-        std::cout << std::endl;
+        cout << endl;
     }
-    cout << endl;
+    
 
     return 0;
 }

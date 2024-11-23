@@ -6,16 +6,18 @@
 using namespace std;
 
 class JBlock: public Block{
-    vector<vector<int>> jblock;
     int num_rot;
     int pos;
+    char type;
+    vector<vector<vector<int>>> block;
 
     public:
-    JBlock(int num_rot, int pos, vector<vector<int>> jblock); 
-    vector<vector<int>> get_block() override;
-    vector<vector<int>> find_rotation() override;
-    int get_position() override;
-    void set_position() override;
+    JBlock(); 
+   vector<vector<int>> getShape() const override;
+    vector<vector<int>> find_rotation(int num_rot) const override;
+    int get_position() const override;
+    void set_position(int newPos) override;
+    char get_type() const override;
 };
 
 #endif
