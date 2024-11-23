@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-IBlock::IBlock() : num_rot{0}, pos{0} {
+IBlock::IBlock() : num_rot{0}, pos{0}, type{'I'} {
     iblock.push_back({{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {1, 1, 1, 1}}); // Horizontal
     iblock.push_back({{1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}}); // Vertical
 }
@@ -25,3 +25,6 @@ void IBlock::set_position(int newPos){
     pos = newPos;
 }
 
+char IBlock::get_type() const {
+    return type;
+}
