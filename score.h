@@ -7,7 +7,10 @@ class Score {
     int highscore;
 
     public:
-    int cumulative_hs();
+    void cumulative_hs(int addBy);
+    int get_score() const;
+    int get_highScore() const;
+    void resetScore();
     Score(int score, int highscore);
 };
 
