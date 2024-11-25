@@ -37,7 +37,13 @@ int main() {
         cout << endl;
 
         // Rotate the block and print the new shape
-        shape = (*it)->find_rotation(3);
+        (*it)->rotateClockwise();
+        (*it)->rotateClockwise();
+        (*it)->rotateClockwise();
+        (*it)->rotateClockwise();
+        (*it)->rotateCounterClockwise();
+        (*it)->rotateCounterClockwise(); 
+        shape = (*it)->get_curShape();
         std::cout << "After rotation:\n";
         for (const auto& row : shape) {
             for (int cell : row) {

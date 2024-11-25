@@ -5,6 +5,7 @@ using namespace std;
 IBlock::IBlock() : num_rot{0}, pos{0}, type{'I'} {
     iblock.push_back({{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {1, 1, 1, 1}}); // Horizontal
     iblock.push_back({{1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}}); // Vertical
+    currentShape = iblock.at(0);
 }
 
 
@@ -15,6 +16,20 @@ vector<vector<int>> IBlock::getShape() const {
 vector<vector<int>> IBlock::find_rotation(int num_rot) const{
     if (num_rot % 2 == 0) return iblock[0];
     else return iblock.at(1);
+}
+
+void IBlock::rotateClockwise() {
+    num_rot++;
+    currentShape = find_rotation(num_rot);
+}
+
+void IBlock::rotateCounterClockwise() {
+    num_rot--;
+    currentShape = find_rotation(num_rot);
+}
+
+vector<vector<int>> IBlock::get_curShape() {
+    return currentShape;
 }
 
 int IBlock::get_position() const{

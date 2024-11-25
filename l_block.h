@@ -10,6 +10,7 @@ class LBlock: public Block{
     int pos;
     char type;
     vector<vector<vector<int>>> lblock;
+    vector<vector<int>> currentShape;
 
     public:
     LBlock(); 
@@ -18,6 +19,9 @@ class LBlock: public Block{
     int get_position() const override;
     void set_position(int newPos) override;
     char get_type() const override;
+    vector<vector<int>> get_curShape() override;
+    void rotateClockwise() override;
+    void rotateCounterClockwise() override;
 };
 
 #endif
