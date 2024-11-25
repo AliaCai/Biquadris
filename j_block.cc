@@ -7,6 +7,7 @@ JBlock::JBlock() : num_rot{0}, pos{0}, type{'J'} {
     block.push_back({{0, 0, 0, 0}, {1, 1, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}}); // 90 degrees
     block.push_back({{0, 0, 0, 0}, {0, 0, 0, 0}, {1, 1, 1, 0}, {-1, -1, 1, 0}}); // 180
     block.push_back({{0, 0, 0, 0}, {-1, 1, 0, 0}, {-1, 1, 0, 0}, {1, 1, 0, 0}}); // 270
+    currentShape = block.at(0);
 }
 
 
@@ -19,6 +20,20 @@ vector<vector<int>> JBlock::find_rotation(int num_rot) const{
     else if (num_rot % 4 == 1) return block.at(1);
     else if (num_rot % 4 == 2) return block.at(2);
     else return block.at(3); 
+}
+
+void JBlock::rotateClockwise() {
+    num_rot++;
+    currentShape = find_rotation(num_rot);
+}
+
+void JBlock::rotateCounterClockwise() {
+    num_rot--;
+    currentShape = find_rotation(num_rot);
+}
+
+vector<vector<int>> JBlock::get_curShape() {
+    return currentShape;
 }
 
 int JBlock::get_position() const{

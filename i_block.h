@@ -11,14 +11,18 @@ class IBlock: public Block{
     int pos;
     char type;
     vector<vector<vector<int>>> iblock;
+    vector<vector<int>> currentShape;
 
     public:
     IBlock(); 
     vector<vector<int>> getShape() const override;
     vector<vector<int>> find_rotation(int num_rot) const override;
+    void rotateClockwise() override;
+    void rotateCounterClockwise() override;
     int get_position() const override;
     void set_position(int newPos) override;
     char get_type() const override;
+    vector<vector<int>> get_curShape() override;
 };
 
 #endif

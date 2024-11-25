@@ -3,10 +3,11 @@
 using namespace std;
 
 LBlock::LBlock() : num_rot{0}, pos{0}, type{'L'} {
-    lblock.push_back({{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 1, 0}, {1, 1, 1, 0}}); // original or 360
+    lblock.push_back({{0, 0, 0, 0}, {0, 0, 0, 0}, {-1, -1, 1, 0}, {1, 1, 1, 0}}); // original or 360
     lblock.push_back({{0, 0, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, {1, 1, 0, 0}}); // 90 degrees
     lblock.push_back({{0, 0, 0, 0}, {0, 0, 0, 0}, {1, 1, 1, 0}, {1, 0, 0, 0}}); // 180
     lblock.push_back({{0, 0, 0, 0}, {1, 1, 0, 0}, {-1, 1, 0, 0}, {-1, 1, 0, 0}}); // 270
+    currentShape = lblock.at(0);
 }
 
 
@@ -19,6 +20,20 @@ vector<vector<int>> LBlock::find_rotation(int num_rot) const{
     else if (num_rot % 4 == 1) return lblock.at(1);
     else if (num_rot % 4 == 2) return lblock.at(2);
     else return lblock.at(3); 
+}
+
+void LBlock::rotateClockwise() {
+    num_rot++;
+    currentShape = find_rotation(num_rot);
+}
+
+void LBlock::rotateCounterClockwise() {
+    num_rot--;
+    currentShape = find_rotation(num_rot);
+}
+
+vector<vector<int>> LBlock::get_curShape() {
+    return currentShape;
 }
 
 int LBlock::get_position() const{
