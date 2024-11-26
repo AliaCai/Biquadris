@@ -5,21 +5,15 @@
 #include "level.h"
 #include "level0.h"
 #include "block.h"
-#include "command_Interpreter.h" //get the level up/down through it
+// #include "command_Interpreter.h" //get the level up/down through it
 
 // steps:
 // 1. read file (A-1, B-2), other names that are supplied
 // 2. go to the end -> hasn't stop playing ->read the file again
 using namespace std;
 
-int Level0::get_level()
+char Level0::read_file()
 {
-    return 0;
-}
-
-Level0::Level0(string fileName)
-{
-    level = 0;
     char type;
     ifstream f{fileName};
     int num = 0;
@@ -28,9 +22,8 @@ Level0::Level0(string fileName)
         num += 1;
         if (num == count)
         {
-            block = createBlock(type);
             count += 1;
-            break;
+            return type;
         }
     }
     count = 0;
@@ -40,9 +33,17 @@ Level0::Level0(string fileName)
         num += 1;
         if (num == count)
         {
-            block = createBlock(type);
             count += 1;
-            break;
+            return type;
         }
     }
+}
+Block *Level0::currentBlock()
+{
+    block = createBlock(read_file());
+    return block;
+}
+
+Level0::Level0(string fileName = "") : Level{0, nullptr}, fileName{fileName}, count{0}
+{
 }

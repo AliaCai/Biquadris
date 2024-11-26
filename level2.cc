@@ -7,15 +7,10 @@
 
 using namespace std;
 
-int Level2::get_level()
-{
-    return 2;
-}
-
-char Leve2::rand_gen()
+char Level2::rand_gen()
 {
     level = 2;
-    int num = rand() % 7;
+    int num = rand() % 7 + 1;
 
     if (num == 1)
     {
@@ -46,7 +41,10 @@ char Leve2::rand_gen()
         return 'Z';
     }
 }
-Level2::Level2()
+
+Block *Level2::currentBlock()
 {
     block = createBlock(rand_gen());
+    return block;
 }
+Level2::Level2() = default;

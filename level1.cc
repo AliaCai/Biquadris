@@ -7,11 +7,6 @@
 
 using namespace std;
 
-int Level1::get_level()
-{
-    return 1;
-}
-
 char Level1::rand_gen()
 {
     level = 1;
@@ -46,7 +41,11 @@ char Level1::rand_gen()
         return 'Z';
     }
 }
-Level1::Level1()
+
+Block *Level1::currentBlock()
 {
     block = createBlock(rand_gen());
+    return block;
 }
+
+Level1::Level1() = default;

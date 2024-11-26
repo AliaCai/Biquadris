@@ -16,6 +16,11 @@ Level::Level(int level, Block *block) : level{level}, block{block}
 {
 }
 
+int Level::get_level()
+{
+    return level;
+}
+
 void Level::set_level(int new_level)
 {
     level = new_level;

@@ -7,11 +7,10 @@
 
 class Level1 : public Level
 {
-    int level;
 
 public:
-    int get_level() override;
     char rand_gen() override;
+    Block *currentBlock() override;
     Level1();
 };
 

@@ -10,12 +10,14 @@ protected:
     Block *block; // doesnt really make sense
 
 public:
-    void set_level(int new_level);
-    virtual int get_level() = 0;
+    virtual Block *currentBlock() = 0;
     virtual char rand_gen() = 0; // changed from void to Block
-    Level(int level, Block *block);
     virtual ~Level() = default;
+
+    int get_level();
+    void set_level(int new_level);
     Block *createBlock(char type);
+    Level(int level, Block *block);
 };
 
 #endif

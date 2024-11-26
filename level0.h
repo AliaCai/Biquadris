@@ -8,9 +8,11 @@
 class Level0 : public Level
 {
     int count;
+    string fileName;
 
 public:
-    int get_level() override;
+    char read_file();
+    virtual Block *currentBlock() override;
     Level0(std::string);
 };
 

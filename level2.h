@@ -9,8 +9,8 @@ class Level2 : public Level
 {
 
 public:
-    int get_level() override;
-    Block rand_gen() override; // all blocks have equal probability
+    char rand_gen() override; // all blocks have equal probability
+    Block *currentBlock() override;
     Level2();
 };
 
