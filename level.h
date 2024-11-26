@@ -1,18 +1,23 @@
 #ifndef LEVEL_H
-#define LEVEL_H 
+#define LEVEL_H
 #include <iostream>
 #include "block.h"
 
-class Level {
+class Level
+{
+protected:
     int level;
-    Block * block; //doesnt really make sense
+    Block *block; // doesnt really make sense
 
-    public:
+public:
+    virtual Block *currentBlock() = 0;
+    virtual char rand_gen() = 0; // changed from void to Block
+    virtual ~Level() = default;
+
+    int get_level();
     void set_level(int new_level);
-    virtual int get_level() = 0;
-    virtual Block rand_gen() = 0; //changed from void to Block
-    Level(int level, Block* block);
-    ~Level();
+    Block *createBlock(char type);
+    Level(int level, Block *block);
 };
 
 #endif

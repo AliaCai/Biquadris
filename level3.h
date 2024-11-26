@@ -1,19 +1,22 @@
 #ifndef LEVEL3_H
-#define LEVEL3_H 
+#define LEVEL3_H
 #include <iostream>
 #include <cstdlib>
 #include "level.h"
 #include "block.h"
 
-class Level3: public Level {
-    int level;
+class Level3 : public Level
+{
+    bool nonRandomOn;
+    int count;
+    string fileName;
 
-    public:
-    int get_level() override;
-    Block rand_gen() override;
-    void heavy();
-    Level3(int level);
-
+public:
+    char rand_gen() override;
+    char non_random();
+    void random();
+    Block *currentBlock();
+    Level3(std::string);
 };
 
 #endif
