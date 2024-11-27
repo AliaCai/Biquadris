@@ -1,21 +1,30 @@
 #ifndef BLOCK_H
 #define BLOCK_H
-#include <iostream>
+
 #include <vector>
 using namespace std;
 
 class Block {
-    public:
-    virtual vector<vector<int>> getShape() const = 0;
-    virtual vector<vector<int>> find_rotation(int num_rot) const = 0;
-    virtual int get_position() const = 0;
-    virtual char get_type() const = 0;
-    virtual void rotateClockwise() = 0;
-    virtual void rotateCounterClockwise() = 0;
-    virtual void set_position(int newPos) = 0;
-    virtual vector<vector<int>> get_curShape() = 0;
+protected:
+    vector<vector<int>> curPosition;  // Current position of the block's cells
+    vector<vector<vector<int>>> allRotations;  // Precomputed rotation offsets
+    int num_rot;  // Current rotation index (0 to 3)
+    char type;  // Block type identifier
+    int cells_left;  // Remaining cells (for game logic)
+
+public:
+    Block(char type, const vector<vector<int>>& initialPosition, 
+          const vector<vector<vector<int>>>& rotations);
     virtual ~Block() = default;
 
+    vector<vector<int>> getPosition() const;
+    void rotateClockwise();
+    void rotateCounterClockwise();
+    char get_type() const;
+
+    void moveLeft();
+    void moveRight();
+    void moveDown();
 };
 
 #endif
