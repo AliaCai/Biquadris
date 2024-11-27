@@ -3,18 +3,18 @@
 #include <string>
 using namespace std;
 
-Interpreter::Interpreter(Board* b1, int& level): board1{b1}, currentBlock{nullptr}, level{level}, sequenceIndex{0}, isRandom{true} {
+Interpreter::Interpreter(Board* b1): board1{b1}, currentBlock{nullptr}, sequenceIndex{0}, isRandom{true} {
     commandMap = {
                {"left", moveLeft()},
                {"right", moveRight()},
-               {"down", moveDown()},
+               {"down", moveDown()},        //
                {"clockwise", rotateClockwise()},
                {"counterclockwise", rotateCounterClockwise()},
-               {"drop", drop()},
+               {"drop", drop()},        //
                {"levelup", levelUp()},
                {"leveldown", levelDown()},
-               {"norandom", Interpreter::norandom},
-               {"random", Interpreter::random},
+               {"norandom", Interpreter::norandom},     //
+               {"random", Interpreter::random},         //
                {"sequence", Interpreter::sequence},
                {"I", currentBlock{make_unique<IBlock>()}},
                {"J", currentBlock{make_unique<JBlock>()}},
@@ -23,38 +23,73 @@ Interpreter::Interpreter(Board* b1, int& level): board1{b1}, currentBlock{nullpt
                {"S", currentBlock{make_unique<SBlock>()}},
                {"T", currentBlock{make_unique<TBlock>()}},
                {"Z", currentBlock{make_unique<ZBlock>()}},
-               {"restart", restart()}
+               {"restart", restart()}                           //
     };
 }
 
 void Interpreter::moveLeft() {
-    b1->is_move_valid(currentBlock, 'L');
+    //board1->is_mL_valid(currentBlock, 'L');
+    board1->is_mL_valid();
 }
 
 void Interpreter::moveRight() {
-    b1->is_move_valid(currentBlock, 'R');
+    //board1->is_move_valid(currentBlock, 'R');
+    board1->is_mR_valid();
 }
 
-void Interpreter::moveDown() {}
+void Interpreter::moveDown() {
+    //board1->is_move_valid(currentBlock, 'D');   // need to add down fn in board.cc
+    board1->is_mD_valid();
+}
 
 void Interpreter::rotateClockwise(){
-    currentBlock->rotateClockwise();
-    b1->is_rotation_valid(&(currentBlock->get_curShape()), currentBlock->get_type());
-    
+    //currentBlock->rotateClockwise();
+    //board1->is_rotation_valid(&(currentBlock->get_curShape()), currentBlock->get_type());
+    if (board1->is_rotate_valid()) {
+        currentBlock->rotateClockwise();
+    }
 }
 
 void Interpreter::rotateCounterClockwise(){
-    currentBlock->rotateCounterClockwise();
-    b1->is_rotation_valid(&(currentBlock->get_curShape()), currentBlock->get_type());
+    //currentBlock->rotateCounterClockwise();
+    //board1->is_rotation_valid(&(currentBlock->get_curShape()), currentBlock->get_type());
+    if (board1->is_rotate_valid()) {
+        currentBlock->rotateCounterClockwise();
+    }
 }
 
-void Interpreter::drop(){}
+void Interpreter::drop() {
+    //while (board1->is_mD_valid()) {
+    //    currentBlock->moveDown();
+    //}
+    baord1->drop();
+    //board1->update_display();        // check impl
+}
 
 void Interpreter::levelUp() {
-    if (level < 4) level++;
+    baord1->level_up();
 }
 
 void Interpreter::levelDown() {
-    if (level > 0) level--;
+    baord1->level_down();
+}
+
+void Interpreter::enableRandom() {
+    isRandom = true;
+}
+
+void Interpreter::disableRandom(const std::string& sequenceFile) {
+    isRandom = false;
+    this->sequenceFile = sequenceFile;
+    sequenceIndex = 0;
+}
+
+
+void Interpreter::restart() {
+    board1->restart();
+    level = 0;
+    currentBlock = nullptr;
+    isRandom = true;
+    sequenceIndex = 0;
 }
 
