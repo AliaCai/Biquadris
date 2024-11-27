@@ -12,7 +12,7 @@ class Level4 : public Level
     string fileName;
 
 public:
-    char rand_gen() override;
+    char rand_gen();
     char non_random();
     void random();
     Block *currentBlock();

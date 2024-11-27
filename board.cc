@@ -28,11 +28,10 @@ int Board::get_level()
     return level->get_level();
 }
 
-/*
-vector<vector<int>> Board::get_curBlock(){
-   return cur_block->getPosition();
+vector<vector<int>> Board::get_curBlock()
+{
+    return cur_block->getPosition();
 }
-*/
 
 string Board::get_fileName()
 {
@@ -49,7 +48,7 @@ unique_ptr<Block> Board::gen_curBlock() // need to fix level, curBlock type + fi
 {
     if (get_level() == 0)
     {
-        Level0 L0{0, nullptr, fileName};
+        Level0 l0 = new Level0{fileName};
         level = &L0;
     }
     else if (get_level() == 1)

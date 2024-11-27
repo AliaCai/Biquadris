@@ -9,7 +9,7 @@ class Level1 : public Level
 {
 
 public:
-    char rand_gen() override;
+    char rand_gen();
     Block *currentBlock() override;
     Level1();
 };

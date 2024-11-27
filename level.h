@@ -11,7 +11,6 @@ protected:
 
 public:
     virtual Block *currentBlock() = 0;
-    virtual char rand_gen() = 0; // changed from void to Block
     virtual ~Level() = default;
 
     int get_level();

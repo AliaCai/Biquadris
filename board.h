@@ -21,7 +21,7 @@ public:
     int get_level();
     int get_highscore();
     string get_fileName();
-    // std::vector<vector<int>> get_curBlock(); -> works after having the newest branch
+    std::vector<vector<int>> get_curBlock();
 
     // mutator
     void set_fileName(string fileName);
@@ -30,6 +30,8 @@ public:
     void upd_highscore();
     void upd_dropped_blocks();
     void upd_board();
+
+    // level up/ level down
 
     // functions:
     // 0. init
