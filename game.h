@@ -9,26 +9,27 @@ using namespace std;
 class Board;
 class Interpreter;
 
-class Game {
-    //Board* b1;
-    //Board* b2;
+class Game
+{
+    // Board* b1;
+    // Board* b2;
 
     unique_ptr<Board> b1, b2;
     unique_ptr<Interpreter> interpreter1, interpreter2;
     bool player1;
-    unique_ptr<TextDisplay> td1;
-    unique_ptr<GraphicsDisplay> gd1;
-    unique_ptr<TextDisplay> td2;
-    unique_ptr<GraphicalDisplay> gd2;
+    // unique_ptr<TextDisplay> td1;
+    // unique_ptr<GraphicsDisplay> gd1;
+    // unique_ptr<TextDisplay> td2;
+    // unique_ptr<GraphicalDisplay> gd2;
 
-    public:
+public:
     void take_turn();
-    //void generateBlock();
+    // void generateBlock();
     bool has_won();
     void reset();
-    //Board* get_board();
-    int get_turn(); 
-    Game(); //initialises the game
+    // Board* get_board();
+    int get_turn();
+    Game(); // initialises the game
 };
 
 #endif

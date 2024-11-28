@@ -20,6 +20,7 @@ using namespace std;
 
 int main()
 {
+    cout << "print" << endl;
     /*
     vector<unique_ptr<Block>> blocks;
 
@@ -87,7 +88,7 @@ int main()
     */
 
     // level2 testing---------------------------------
-    cout << "print" << endl;
+
     /*
 unique_ptr<Level> level = make_unique<Level2>();
 for (int i = 0; i < 10; i++)
