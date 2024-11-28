@@ -43,33 +43,34 @@ public:
     void level_up();   // change level field
     void level_down(); // change level field
     void gen_blocks();
-    void upd_dropped_blocks(unique_ptr<Block> new_dropped_b);
-    void upd_board(); // according to the dropped_blocks()
+    void upd_dropped_blocks(unique_ptr<Block> new_dropped_b); // add
+    void upd_board();                                         // according to the dropped_blocks()
 
     void restart();
 
-    // functions:
+    // functions:------------------------
     // 3. level3: heavy; level4:add extra blocks
     //------------maybe these 4 can be combined using templates
+    bool is_block_valid(); // true: can have cur_block, false: lose the game
+
     bool is_mL_valid();
     bool is_mR_valid();
     bool is_rotateCW_valid();
     bool is_rotateCCW_valid();
     //------------------------------------
-    bool is_mD_valid();   // check touch bottom-> next
-    bool is_drop_valid(); // count+=1;
+    void reach_bottom();
+    bool is_mD_valid();
+    bool is_drop_valid();
 
-    bool is_block_valid();
+    // clears:------------------------------------
+    vector<int> clear_line_valid();    // return the indexes of cleared line
+    void clear_block_points(int line); // change the point of block after a line is removed
+    void clear_blocks();               // upd score ////clear blocks from dropped_blocks
+    void clear_lines();                // upd score // //change cordinates of points
 
-    bool clear_line_valid();
-    void clear_block_valid();
-    void clear_line();
-    void clear_block();
-
-    void next_round();
-    void update_display();
-    Board();  // init
-    ~Board(); // not sure if needed
+    // void update_display(); //I aussumsed it is used to update block
+    Board();            // init
+    ~Board() = default; // not sure if needed
 };
 
 #endif

@@ -130,6 +130,9 @@ void Board::upd_dropped_blocks(unique_ptr<Block> new_dropped_b)
 
 void Board::upd_board()
 {
+    std::vector<std::vector<char>> new_board(18, std::vector<char>(11, '.'));
+    board = new_board;
+
     for (auto i = 0; i < dropped_blocks.size(); ++i) // loop through all the dropped block
     {
 
@@ -142,29 +145,20 @@ void Board::upd_board()
             int x = point.at(0);
             int y = point.at(1);
 
-            for (auto a = 0; a < board.size(); ++a)
+            for (auto r = 0; r < board.size(); ++r)
             {
-                vector<char> line = board.at(a);
-                for (auto b = 0; b < line.size(); ++b)
+                vector<char> line = board.at(r); // 1 row
+                for (auto c = 0; c < line.size(); ++c)
                 {
-                    char old_char = line.at(b);
-                    if (a == y && b == x) // the cell equals to the point
+                    char old_char = line.at(c);
+                    if (r == y && c == x) // the cell equals to the point
                     {
-                        board.at(a).at(b) = new_type; // update the character
+                        board.at(r).at(c) = new_type; // update the character
                     }
                 }
             }
         }
     }
-}
-
-Board::Board() : board(18, std::vector<char>(11, '.'))
-{
-    score = Score(0, 0);
-    fileName = "";
-    count = 0;
-    level = make_unique<Level>();
-    gen_blocks(); // update cur_block and next_block
 }
 
 void Board::restart()
@@ -174,11 +168,41 @@ void Board::restart()
     count = 0;
     level = make_unique<Level>();
     gen_blocks(); // update cur_block and next_block
+    if (!is_block_valid())
+    {
+        cout << "GAME END" << endl;
+    }
     dropped_blocks.clear();
     std::vector<std::vector<char>> new_board(18, std::vector<char>(11, '.'));
     board = new_board;
 }
 
+//// functions:------------------------------------------------
+bool Board::is_block_valid() // game over method
+{
+    vector<vector<int>> pts_forshadow = cur_block->getPosition();
+    for (auto i = 0; i < 4; ++i) // loop through each point
+    {
+
+        vector<int> point = pts_forshadow.at(i);
+
+        int x = point.at(0);
+        int y = point.at(1);
+
+        for (auto a = 0; a < board.size(); ++a)
+        {
+            vector<char> line = board.at(a);
+            for (auto b = 0; b < line.size(); ++b)
+            {
+                if (a == y && b == x) // the cell equals to the point //reach bottom
+                {
+                    return false; // the game end
+                }
+            }
+        }
+    }
+    return true;
+}
 bool Board::is_mL_valid()
 {
     vector<vector<int>> pts_forshadow = cur_block->p_after_left();
@@ -289,4 +313,155 @@ bool Board::is_rotateCCW_valid()
 
     cur_block->rotateCounterClockwise(); // the points are not occupied
     return true;
+}
+
+//------------------------------------------------------------------------------------------------
+void Board::reach_bottom()
+{
+    upd_dropped_blocks(std::move(cur_block));
+    upd_board();
+    clear_lines();  // score is updated
+    clear_blocks(); // score is updated
+
+    count += 1;
+    cur_block = std::move(next_block);
+    next_block = level->currentBlock();
+    if (!is_block_valid())
+    {
+        cout << "GAME END" << endl;
+    }
+    upd_board();
+}
+
+bool Board::is_mD_valid()
+{
+    vector<vector<int>> pts_forshadow = cur_block->p_after_down();
+    for (auto i = 0; i < 4; ++i) // loop through each point
+    {
+
+        vector<int> point = pts_forshadow.at(i);
+
+        int x = point.at(0);
+        int y = point.at(1);
+
+        for (auto a = 0; a < board.size(); ++a)
+        {
+            vector<char> line = board.at(a);
+            for (auto b = 0; b < line.size(); ++b)
+            {
+                if (a == y && b == x) // the cell equals to the point //reach bottom
+                {
+                    reach_bottom();
+                    return false;
+                }
+            }
+        }
+    }
+
+    cur_block->moveDown(); // cur_block points is updated
+    return true;
+}
+
+bool Board::is_drop_valid()
+{
+    while (is_mD_valid()) // move down while it is valid
+    {
+    }
+}
+
+// clears:------------------------------------------------------------------------
+vector<int> Board::clear_line_valid()
+{
+    vector<int> n_cl;
+    for (auto r = 0; r < board.size(); ++r)
+    {
+        int num_col = 0;                 // 11
+        vector<char> line = board.at(r); // 1 row
+        for (auto c = 0; c < line.size(); ++c)
+        {
+            char cell = board.at(r).at(c);
+            if (cell != '.')
+            {
+                num_col += 1;
+            }
+        }
+        if (num_col == 11)
+        {                         // that row/line is full
+            n_cl.emplace_back(r); // row index;
+        }
+    }
+    return n_cl;
+}
+
+void Board::clear_block_points(int line)
+{
+    for (auto i = 0; i < dropped_blocks.size(); ++i) // loop through all the dropped block
+    {
+
+        vector<vector<int>> d_block = dropped_blocks.at(i)->getPosition();
+        int d_b_c = dropped_blocks.at(i)->get_cells_left(); // dropped block cells
+        for (int j = 0; i < 4; ++i)                         // loop through all the points of the dropped block
+        {
+            vector<int> point = d_block.at(j);
+            int x = point.at(0);
+            int y = point.at(1);
+
+            if (y == line)
+            { // same row as cleared row
+                point.at(0) = -1;
+                point.at(1) = -1;
+                dropped_blocks.at(i)->set_cells(d_b_c - 1); // update cells_left of the block
+            }
+            else if (y > line)
+            { // the blocks on the top of cleared down drop down by 1
+                point.at(1) = point.at(1) - 1;
+            }
+        }
+    }
+}
+
+void Board::clear_blocks()
+{
+    int n_cb = 0;
+    for (auto i = dropped_blocks.begin(); i != dropped_blocks.end();) // loop through all the dropped block
+    {
+
+        int num_db_cells = (*i)->get_cells_left();
+        if (num_db_cells == 0)
+        {
+            n_cb += 1;
+            i = dropped_blocks.erase(i);                    // erase this point from dropped_blocks
+            score.cumulative_s(0, 0, (*i)->get_level(), 1); // update score
+        }
+        else
+        {
+            ++i;
+        }
+    }
+}
+
+void Board::clear_lines()
+{
+    vector<int> cl_l = clear_line_valid();
+    int cl_len = 0;
+    for (int i = 0; i < cl_l.size(); ++i)
+    {
+        clear_block_points(cl_l.at(i));
+        cl_len++;
+    }
+    score.cumulative_s(get_level_num(), cl_len, 0, 0); // update score
+}
+//------------------------------------------------------------------------------------------------------------
+
+Board::Board() : board(18, std::vector<char>(11, '.'))
+{
+    score = Score(0, 0);
+    fileName = "";
+    count = 0;
+    level = make_unique<Level>();
+    gen_blocks(); // update cur_block and next_block
+    if (!is_block_valid())
+    {
+        cout << "GAME END" << endl;
+    }
 }
