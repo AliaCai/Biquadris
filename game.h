@@ -1,25 +1,23 @@
 #ifndef GAME_H
 #define GAME_H
 #include <iostream>
+#include "interpreter.h"
 #include "board.h"
 
 class Game {
-    Board* b1;
-    Block * curB1;
-    Block * nextB1;
+    //Board* b1;
+    //Board* b2;
 
-    Board* b2;
-    Block * curB2;
-    Block * nextB2;
-
+    std::unique_ptr<Board> b1, b2;
+    std::unique_ptr<Interpreter> interpreter1, interpreter2;
     bool player1;
 
     public:
     void take_turn();
-    void generateBlock();
+    //void generateBlock();
     bool has_won();
     void reset();
-    Board* get_board();
+    //Board* get_board();
     int get_turn(); 
     Game(); //initialises the game
 };
