@@ -10,7 +10,6 @@
 
 using namespace std;
 
-
 // getters------------------------------------------------------------
 Score Board::get_score()
 {
@@ -52,7 +51,8 @@ vector<vector<int>> Board::get_nextBlock()
     return next_block->getPosition();
 }
 
-vector<vector<char>> Board::getBoard() {
+vector<vector<char>> Board::getBoard()
+{
     return board;
 }
 
@@ -128,7 +128,8 @@ void Board::gen_blocks() // level 0-2
     }
 }
 
-void Board::upd_dropped_blocks(unique_ptr<Block> new_dropped_b){
+void Board::upd_dropped_blocks(unique_ptr<Block> new_dropped_b)
+{
     dropped_blocks.emplace_back(std::move(new_dropped_b));
 }
 
@@ -137,6 +138,7 @@ void Board::upd_board()
     std::vector<std::vector<char>> new_board(18, std::vector<char>(11, '.'));
     board = new_board;
 
+    // update drop_blocks
     for (size_t i = 0; i < dropped_blocks.size(); ++i) // loop through all the dropped block
     {
 
@@ -154,7 +156,7 @@ void Board::upd_board()
                 vector<char> line = board.at(r); // 1 row
                 for (size_t c = 0; c < line.size(); ++c)
                 {
-                    //char old_char = line.at(c);
+                    // char old_char = line.at(c);
                     if (r == y && c == x) // the cell equals to the point
                     {
                         board.at(r).at(c) = new_type; // update the character
@@ -163,7 +165,32 @@ void Board::upd_board()
             }
         }
     }
-    notifyObservers();
+
+    // update cur_blocki
+
+    vector<vector<int>> c_block = cur_block->getPosition();
+    char new_type = cur_block->get_type();
+    for (int j = 0; j < 4; ++j) // loop through all the points of the dropped block
+    {
+
+        vector<int> point = c_block.at(j);
+        size_t x = point.at(0);
+        size_t y = point.at(1);
+
+        for (size_t r = 0; r < board.size(); ++r)
+        {
+            vector<char> line = board.at(r); // 1 row
+            for (size_t c = 0; c < line.size(); ++c)
+            {
+                if (r == y && c == x) // the cell equals to the point
+                {
+                    board.at(r).at(c) = new_type; // update the character
+                }
+            }
+        }
+    }
+
+    // notifyObservers();
 }
 
 void Board::restart()
@@ -171,8 +198,8 @@ void Board::restart()
     score.resetScore();
     fileName = "";
     count = 0;
-    level = make_unique<Level0>(fileName, count); //Sampoorna changed from Level to Level0
-    gen_blocks(); // update cur_block and next_block
+    level = make_unique<Level0>(fileName, count); // Sampoorna changed from Level to Level0
+    gen_blocks();                                 // update cur_block and next_block
     if (!is_block_valid())
     {
         cout << "GAME END" << endl;
@@ -206,6 +233,7 @@ bool Board::is_block_valid() // game over method
             }
         }
     }
+    upd_board();
     return true;
 }
 bool Board::is_mL_valid()
@@ -233,7 +261,8 @@ bool Board::is_mL_valid()
     }
 
     cur_block->moveLeft(); // the points are not occupied
-    notifyObservers();
+    // notifyObservers();
+    upd_board();
     return true;
 }
 
@@ -262,7 +291,8 @@ bool Board::is_mR_valid()
     }
 
     cur_block->moveRight(); // the points are not occupied
-    notifyObservers();
+    // notifyObservers();
+    upd_board();
     return true;
 }
 
@@ -291,7 +321,8 @@ bool Board::is_rotateCW_valid()
     }
 
     cur_block->rotateClockwise(); // the points are not occupied
-    notifyObservers();
+    // notifyObservers();
+    upd_board();
     return true;
 }
 
@@ -320,7 +351,9 @@ bool Board::is_rotateCCW_valid()
     }
 
     cur_block->rotateCounterClockwise(); // the points are not occupied
-    notifyObservers();
+                                         // notifyObservers();
+    upd_board();
+
     return true;
 }
 
@@ -368,6 +401,8 @@ bool Board::is_mD_valid()
     }
 
     cur_block->moveDown(); // cur_block points is updated
+    upd_board();
+
     return true;
 }
 
@@ -400,6 +435,7 @@ vector<int> Board::clear_line_valid()
             n_cl.emplace_back(r); // row index;
         }
     }
+
     return n_cl;
 }
 
@@ -413,7 +449,7 @@ void Board::clear_block_points(int line)
         for (int j = 0; j < 4; ++j)                         // loop through all the points of the dropped block
         {
             vector<int> point = d_block.at(j);
-            //int x = point.at(0);
+            // int x = point.at(0);
             int y = point.at(1);
 
             if (y == line)
@@ -463,9 +499,11 @@ void Board::clear_lines()
 }
 //------------------------------------------------------------------------------------------------------------
 
-Board::Board() : score(0, 0), fileName{""}, count{0}, level(make_unique<Level0>(fileName, count)), board(18, vector<char>(11, '.')) {
+Board::Board(string fn) : score(0, 0), fileName{""}, count{0}, level(make_unique<Level0>(fn, 0)), board(18, vector<char>(11, '.'))
+{
     gen_blocks(); // Update cur_block and next_block
-    if (!is_block_valid()) {
+    if (!is_block_valid())
+    {
         cout << "GAME END" << endl;
     }
 }

@@ -10,7 +10,8 @@
 #include "subject.h"
 
 using namespace std;
-class Board: public Subject{
+class Board : public Subject
+{
     Score score;
     // for levels:
     string fileName;
@@ -24,8 +25,6 @@ class Board: public Subject{
     // boards
     std::vector<std::vector<char>> board;
     std::vector<std::unique_ptr<Block>> dropped_blocks;
-
-    
 
 public:
     // getter
@@ -73,10 +72,8 @@ public:
     void clear_lines();                // upd score // //change cordinates of points
 
     // void update_display(); //I aussumsed it is used to update block
-    Board();            // init
-    ~Board(); // not sure if needed
-
-    
+    Board(string); // init
+    ~Board();      // not sure if needed
 };
 
 #endif

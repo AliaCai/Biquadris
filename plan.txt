@@ -1,0 +1,8 @@
+Alia:
+- Finsh updating Board tonight
+-connect to graphical/text display
+-fix Game/command Interpreter
+
+
+Tomorrow:
+-

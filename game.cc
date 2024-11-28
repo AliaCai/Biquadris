@@ -3,21 +3,23 @@
 #include "board.h"
 #include "block.h"
 #include <memory>
-#include "level0.h"           
+#include "level0.h"
 using namespace std;
 
-Game::Game() : player1{true} {
+Game::Game() : player1{true}
+{
     b1 = make_unique<Board>();
     b2 = make_unique<Board>();
     interpreter1 = make_unique<Interpreter>(b1.get());
     interpreter2 = make_unique<Interpreter>(b2.get());
-    td1 = make_unique<TextDisplay>(b1);
-    gd1 = make_unique<GraphicalDisplay>(b1);
-    td2 = make_unique<TextDisplay>(b2);
-    gd2 = make_unique<GraphicalDisplay>(b2);
+    // td1 = make_unique<TextDisplay>(b1);
+    // gd1 = make_unique<GraphicalDisplay>(b1);
+    // td2 = make_unique<TextDisplay>(b2);
+    // gd2 = make_unique<GraphicalDisplay>(b2);
 }
 
-void Game::take_turn() {
+void Game::take_turn()
+{
     string command;
     cin >> command;
 
@@ -41,36 +43,44 @@ void Game::take_turn() {
         cmd = Interpreter::Command::LevelDown;
     else if (command == "restart")
         cmd = Interpreter::Command::Restart;
-    else {
+    else
+    {
         cout << "Invalid command." << endl;
         return;
     }
 
-    if (player1) {
+    if (player1)
+    {
         interpreter1->executeCommand(cmd);
-
-    } else {
+    }
+    else
+    {
         interpreter2->executeCommand(cmd);
     }
 
     player1 = !player1;
 }
 
-bool Game::has_won() {
-    if (player1) {
+bool Game::has_won()
+{
+    if (player1)
+    {
         return b1->is_block_valid();
-    } else {
+    }
+    else
+    {
         return b2->is_block_valid();
     }
 }
 
-void Game::reset() {
+void Game::reset()
+{
     b1->restart();
     b2->restart();
     player1 = true;
 }
 
-int Game::get_turn() {
+int Game::get_turn()
+{
     return player1 ? 1 : 2;
 }
-
