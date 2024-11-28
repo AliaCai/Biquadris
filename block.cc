@@ -37,6 +37,22 @@ char Block::get_type() const {
     return type;
 }
 
+int Block::get_cells_left() // Alia adds this
+{
+    return cells_left;
+}
+
+
+int Block::get_level() // Alia adds this
+{
+    return level;
+}
+
+void Block::set_cells(int num_cells) // Alia adds this
+{
+    cells_left = num_cells;
+}
+
 void Block::moveLeft() {
     for(auto it = curPosition.begin(); it != curPosition.end(); ++it) {
         (*it).at(0)--;

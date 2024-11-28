@@ -24,6 +24,9 @@ public:
     void rotateClockwise();
     void rotateCounterClockwise();
     char get_type() const;
+    int get_cells_left();          // Alia adds this
+    int get_level();               // Alia adds this //make it virtual?
+    void set_cells(int num_cells); // Alia adds this
     
     void moveLeft();
     void moveRight();
