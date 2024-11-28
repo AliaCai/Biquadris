@@ -13,47 +13,47 @@ using namespace std;
 
 int main() {
     vector<unique_ptr<Block>> blocks;
-    blocks.push_back(make_unique<IBlock>());
-    blocks.push_back(make_unique<OBlock>());
-    blocks.push_back(make_unique<LBlock>()); 
-    blocks.push_back(make_unique<SBlock>());   
-    blocks.push_back(make_unique<TBlock>());  
-    blocks.push_back(make_unique<ZBlock>());   
-    blocks.push_back(make_unique<JBlock>());     
+    blocks.push_back(make_unique<IBlock>(0));
+    blocks.push_back(make_unique<OBlock>(0));
+    blocks.push_back(make_unique<LBlock>(0)); 
+    blocks.push_back(make_unique<SBlock>(0));   
+    blocks.push_back(make_unique<TBlock>(0));  
+    blocks.push_back(make_unique<ZBlock>(0));   
+    blocks.push_back(make_unique<JBlock>(0));     
     // Print the initial shape
-    for (auto it = blocks.begin(); it != blocks.end(); ++it) {
-        char type = (*it)->get_type(); 
-        cout << type << endl;
+    // for (auto it = blocks.begin(); it != blocks.end(); ++it) {
+    //     char type = (*it)->get_type(); 
+    //     cout << type << endl;
         
-        auto shape = (*it)->getShape();
-        for (const auto& row : shape) {
-            for (int cell : row) {
-                if (cell == 1) cout << type;
-                else if (cell == -1) cout << " ";
-            }
-            cout << endl;
-        }
+    //     auto shape = (*it)->getShape();
+    //     for (const auto& row : shape) {
+    //         for (int cell : row) {
+    //             if (cell == 1) cout << type;
+    //             else if (cell == -1) cout << " ";
+    //         }
+    //         cout << endl;
+    //     }
 
-        cout << endl;
+    //     cout << endl;
 
-        // Rotate the block and print the new shape
-        (*it)->rotateClockwise();
-        (*it)->rotateClockwise();
-        (*it)->rotateClockwise();
-        (*it)->rotateClockwise();
-        (*it)->rotateCounterClockwise();
-        (*it)->rotateCounterClockwise(); 
-        shape = (*it)->get_curShape();
-        std::cout << "After rotation:\n";
-        for (const auto& row : shape) {
-            for (int cell : row) {
-                if (cell == 1) cout << type;
-                else if (cell == -1) cout << " ";
-            }
-            cout << endl;
-        }
-        cout << endl;
-    }
+    //     // Rotate the block and print the new shape
+    //     (*it)->rotateClockwise();
+    //     (*it)->rotateClockwise();
+    //     (*it)->rotateClockwise();
+    //     (*it)->rotateClockwise();
+    //     (*it)->rotateCounterClockwise();
+    //     (*it)->rotateCounterClockwise(); 
+    //     shape = (*it)->get_curShape();
+    //     std::cout << "After rotation:\n";
+    //     for (const auto& row : shape) {
+    //         for (int cell : row) {
+    //             if (cell == 1) cout << type;
+    //             else if (cell == -1) cout << " ";
+    //         }
+    //         cout << endl;
+    //     }
+    //     cout << endl;
+    // }
     
 
     return 0;

@@ -7,7 +7,7 @@ using namespace std;
 
 class JBlock: public Block{
     public:
-    JBlock(); 
+    JBlock(int level); 
 };
 
 #endif
