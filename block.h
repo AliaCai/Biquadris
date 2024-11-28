@@ -6,25 +6,35 @@ using namespace std;
 
 class Block {
 protected:
+    char type;  // Block type identifier
     vector<vector<int>> curPosition;  // Current position of the block's cells
     vector<vector<vector<int>>> allRotations;  // Precomputed rotation offsets
     int num_rot;  // Current rotation index (0 to 3)
-    char type;  // Block type identifier
     int cells_left;  // Remaining cells (for game logic)
+    int level;
 
 public:
     Block(char type, const vector<vector<int>>& initialPosition, 
-          const vector<vector<vector<int>>>& rotations);
+          const vector<vector<vector<int>>>& rotations, int level);
     virtual ~Block() = default;
+    Block( const Block &other );
 
     vector<vector<int>> getPosition() const;
+
     void rotateClockwise();
     void rotateCounterClockwise();
     char get_type() const;
-
+    
     void moveLeft();
     void moveRight();
     void moveDown();
+
+    vector<vector<int>> p_after_left() const;
+    vector<vector<int>> p_after_right() const;
+    vector<vector<int>> p_after_down() const;
+    vector<vector<int>> p_after_rotateCW() const;
+    vector<vector<int>> p_after_rotateCCW() const;
+    
 };
 
 #endif

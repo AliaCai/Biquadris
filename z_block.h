@@ -7,7 +7,7 @@ using namespace std;
 
 class ZBlock: public Block{
     public:
-    ZBlock(); 
+    ZBlock(int level); 
 
 };
 
