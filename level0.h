@@ -11,9 +11,17 @@ class Level0 : public Level
     string fileName;
 
 public:
+    int get_count();
+    string get_fileName();
+    void set_count(int count);
+    void set_fileName(string fileName);
+
     char read_file();
-    virtual Block *currentBlock() override;
-    Level0(std::string);
+    virtual unique_ptr<Block> currentBlock() override;
+    Level0(std::string, int);
+
+    // call Levellevel0(fileName, count)
+    //
 };
 
 #endif

@@ -1,12 +1,12 @@
 #include <iostream>
 #include <memory>
 #include "block.h"
-#include "level.h"  //fils
-#include "level0.h" //fils
-#include "level1.h" //fils
-#include "level2.h" //fils
-#include "level3.h" //fils
-#include "level4.h" //fils
+#include "level.h"
+#include "level0.h"
+#include "level1.h"
+#include "level2.h"
+#include "level3.h"
+#include "level4.h"
 #include "score.h"
 #include "game.h"
 
@@ -23,7 +23,12 @@ int Board::get_highscore()
     return get_highscore();
 }
 
-int Board::get_level()
+Level *Board::get_level()
+{
+    return level.get(); // why it does not work?
+}
+
+int Board::get_level_num()
 {
     return level->get_level();
 }
@@ -31,6 +36,11 @@ int Board::get_level()
 vector<vector<int>> Board::get_curBlock()
 {
     return cur_block->getPosition();
+}
+
+vector<vector<int>> Board::get_nextBlock()
+{
+    return next_block->getPosition();
 }
 
 string Board::get_fileName()
@@ -46,33 +56,39 @@ void Board::set_fileName(string fileName)
 
 unique_ptr<Block> Board::gen_curBlock() // need to fix level, curBlock type + fields
 {
-    if (get_level() == 0)
+    if (get_level_num() == 0)
     {
-        Level0 l0 = new Level0{fileName};
-        level = &L0;
+        Level0 L0{fileName, count};
+        level = make_unique<Level>(&L0);
     }
-    else if (get_level() == 1)
+
+    else if (get_level_num() == 1)
     {
-        Level1 L1{1, nullptr};
-        level = &L1;
+        Level1 L1{};
+        level = make_unique<Level>(&L1);
     }
-    else if (get_level() == 2)
+    else if (get_level_num() == 2)
     {
-        Level1 L2{2, nullptr, fileName};
-        level = &L2;
+        Level2 L2{};
+        level = make_unique<Level>(&L2);
     }
-    else if (get_level() == 3)
+
+    /* girls I am doomed, I am just going to work with lev 0-2 first
+    else if (get_level_num() == 3)
     {
-        Level1 L3{3, nullptr, fileName};
-        level = &L3;
+        Level3 L3{};
+        level = make_unique<Level>(&L3);
     }
-    else if (get_level() == 4)
+    else if (get_level_num() == 4)
     {
-        Level1 L4{4, nullptr, fileName};
-        level = &L4;
-    }
-    return level.currentBlock();
+        Level4 L4{};
+        level = make_unique<Level>(&L4);
+    }*/
 };
+}
+;
+}
+;
 
 void Board::init()
 {

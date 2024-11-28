@@ -15,8 +15,8 @@ public:
     char rand_gen();
     char non_random();
     void random();
-    Block *currentBlock();
-    Level3(std::string);
+    unique_ptr<Block> currentBlock();
+    Level3(bool, int, std::string);
 };
 
 #endif

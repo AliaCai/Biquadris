@@ -9,8 +9,8 @@ class Level2 : public Level
 {
 
 public:
-    char rand_gen(); // all blocks have equal probability
-    Block *currentBlock() override;
+    char rand_gen();
+    unique_ptr<Block> currentBlock() override;
     Level2();
 };
 

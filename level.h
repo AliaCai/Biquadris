@@ -1,22 +1,24 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 #include <iostream>
+#include <memory>
 #include "block.h"
 
 class Level
 {
 protected:
     int level;
-    Block *block; // doesnt really make sense
 
 public:
-    virtual Block *currentBlock() = 0;
-    virtual ~Level() = default;
+    // virtual
+    virtual std::unique_ptr<Block> currentBlock() = 0;
 
+    // for superclass
     int get_level();
     void set_level(int new_level);
-    Block *createBlock(char type);
-    Level(int level, Block *block);
+    std::unique_ptr<Block> createBlock(char type);
+    Level(int level);
+    virtual ~Level() = default;
 };
 
 #endif

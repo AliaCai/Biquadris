@@ -1,7 +1,8 @@
 #include "level.h"
 #include <iostream>
+#include <memory>
+#include <utility>
 #include "block.h"
-
 #include "i_block.h"
 #include "j_block.h"
 #include "l_block.h"
@@ -12,7 +13,7 @@
 
 using namespace std;
 
-Level::Level(int level, Block *block) : level{level}, block{block}
+Level::Level(int level) : level{level}
 {
 }
 
@@ -26,39 +27,47 @@ void Level::set_level(int new_level)
     level = new_level;
 }
 
-Block *Level::createBlock(char type)
+unique_ptr<Block> Level::createBlock(char type)
 {
 
     if (type == 'I')
     {
-        return new IBlock();
+
+        unique_ptr<Block> iblock = make_unique<IBlock>();
+        return iblock;
     }
     else if (type == 'J')
     {
-        return new JBlock();
+        unique_ptr<Block> jblock = make_unique<JBlock>();
+        return jblock;
     }
     else if (type == 'L')
     {
-        return new LBlock();
+        unique_ptr<Block> lblock = make_unique<LBlock>();
+        return lblock;
     }
     else if (type == 'O')
     {
-        return new OBlock();
+        unique_ptr<Block> oblock = make_unique<OBlock>();
+        return oblock;
     }
     else if (type == 'S')
     {
-        return new SBlock();
+        unique_ptr<Block> sblock = make_unique<SBlock>();
+        return sblock;
     }
     else if (type == 'T')
     {
-        return new TBlock();
+        unique_ptr<Block> tblock = make_unique<TBlock>();
+        return tblock;
     }
     else if (type == 'Z')
     {
-        return new ZBlock();
+        unique_ptr<Block> zblock = make_unique<ZBlock>();
+        return zblock;
     }
     else
     {
-        return nullptr;
+        return unique_ptr<Block>(); // null-ptr
     }
 }

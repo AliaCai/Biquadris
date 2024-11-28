@@ -12,6 +12,26 @@
 // 2. go to the end -> hasn't stop playing ->read the file again
 using namespace std;
 
+int Level0::get_count()
+{
+    return count;
+}
+
+string Level0::get_fileName()
+{
+    return fileName;
+}
+
+void Level0::set_count(int count)
+{
+    count = count;
+}
+
+void Level0::set_fileName(string fileName)
+{
+    fileName = fileName;
+}
+
 char Level0::read_file()
 {
     char type;
@@ -38,12 +58,12 @@ char Level0::read_file()
         }
     }
 }
-Block *Level0::currentBlock()
+
+unique_ptr<Block> Level0::currentBlock()
 {
-    block = createBlock(read_file());
-    return block;
+    return createBlock(read_file());
 }
 
-Level0::Level0(string fileName = "") : Level{0, nullptr}, fileName{fileName}, count{0}
+Level0::Level0(string fileName = "", int count = 0) : Level{0}, fileName{fileName}, count{count}
 {
 }
