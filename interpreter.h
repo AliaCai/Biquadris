@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <functional>
+#include <memory>
 using namespace std;
 
 class Interpreter {
@@ -32,25 +33,7 @@ class Interpreter {
         // Constructor
         Interpreter(Board* b1);
 
-        // Command methods
-        //void executeCommand(const string& commandLine);
-        void moveLeft();
-        void moveRight();
-        void moveDown();
-        void drop();
-        void rotateClockwise();
-        void rotateCounterClockwise();
-        void levelUp();
-        void levelDown();
-        void enableRandom();
-        void disableRandom(const std::string& sequenceFile);
-        // i don't think we need setBlock
-        //void setBlock(const std::string& blockType);
-        //void executeSequence(const std::string& sequenceFile);
-        void executeCommand(Command cmd);
-        void restart();
-
-        // enum for commands
+         // enum for commands
         enum class Command {
             Left,
             Right,
@@ -72,6 +55,26 @@ class Interpreter {
             Z,
             Restart
     };
+
+        // Command methods
+        //void executeCommand(const string& commandLine);
+        void moveLeft();
+        void moveRight();
+        void moveDown();
+        void drop();
+        void rotateClockwise();
+        void rotateCounterClockwise();
+        void levelUp();
+        void levelDown();
+        void enableRandom();
+        void disableRandom(const std::string& sequenceFile);
+        // i don't think we need setBlock
+        //void setBlock(const std::string& blockType);
+        //void executeSequence(const std::string& sequenceFile);
+        void executeCommand(Interpreter::Command cmd);
+        void restart();
+
+       
 };
 
 
