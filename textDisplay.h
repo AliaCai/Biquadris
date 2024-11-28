@@ -6,10 +6,9 @@
 
 class TextDisplay: public Observer {
     Board* subject;
-    int top, bottom, left, right;
 
     public:
-    TextDisplay(Board* subject, int top, int bottom, int left, int right); // constructor
+    TextDisplay(Board* subject); // constructor
     void notify() override;
     ~TextDisplay(); // destructor
 };

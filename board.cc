@@ -10,6 +10,7 @@
 
 using namespace std;
 
+
 // getters------------------------------------------------------------
 Score Board::get_score()
 {
@@ -49,6 +50,10 @@ vector<vector<int>> Board::get_curBlock()
 vector<vector<int>> Board::get_nextBlock()
 {
     return next_block->getPosition();
+}
+
+vector<vector<char>> Board::getBoard() {
+    return board;
 }
 
 // setter------------------------------------------------------------
@@ -123,8 +128,7 @@ void Board::gen_blocks() // level 0-2
     }
 }
 
-void Board::upd_dropped_blocks(unique_ptr<Block> new_dropped_b)
-{
+void Board::upd_dropped_blocks(unique_ptr<Block> new_dropped_b){
     dropped_blocks.emplace_back(std::move(new_dropped_b));
 }
 
@@ -159,6 +163,7 @@ void Board::upd_board()
             }
         }
     }
+    notifyObservers();
 }
 
 void Board::restart()
@@ -228,6 +233,7 @@ bool Board::is_mL_valid()
     }
 
     cur_block->moveLeft(); // the points are not occupied
+    notifyObservers();
     return true;
 }
 
@@ -256,6 +262,7 @@ bool Board::is_mR_valid()
     }
 
     cur_block->moveRight(); // the points are not occupied
+    notifyObservers();
     return true;
 }
 
@@ -284,6 +291,7 @@ bool Board::is_rotateCW_valid()
     }
 
     cur_block->rotateClockwise(); // the points are not occupied
+    notifyObservers();
     return true;
 }
 
@@ -312,6 +320,7 @@ bool Board::is_rotateCCW_valid()
     }
 
     cur_block->rotateCounterClockwise(); // the points are not occupied
+    notifyObservers();
     return true;
 }
 

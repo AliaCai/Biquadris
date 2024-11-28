@@ -11,6 +11,10 @@ Game::Game() : player1{true} {
     b2 = make_unique<Board>();
     interpreter1 = make_unique<Interpreter>(b1.get());
     interpreter2 = make_unique<Interpreter>(b2.get());
+    td1 = make_unique<TextDisplay>(b1);
+    gd1 = make_unique<GraphicalDisplay>(b1);
+    td2 = make_unique<TextDisplay>(b2);
+    gd2 = make_unique<GraphicalDisplay>(b2);
 }
 
 void Game::take_turn() {
@@ -44,6 +48,7 @@ void Game::take_turn() {
 
     if (player1) {
         interpreter1->executeCommand(cmd);
+
     } else {
         interpreter2->executeCommand(cmd);
     }

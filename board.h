@@ -6,10 +6,11 @@
 #include "level.h"
 #include "score.h"
 #include "game.h"
+#include "observer.h"
+#include "subject.h"
 
 using namespace std;
-class Board
-{
+class Board: public Subject{
     Score score;
     // for levels:
     string fileName;
@@ -24,11 +25,14 @@ class Board
     std::vector<std::vector<char>> board;
     std::vector<std::unique_ptr<Block>> dropped_blocks;
 
+    
+
 public:
     // getter
     Score get_score();
     int score_num();
     int get_highscore();
+    vector<vector<char>> getBoard();
 
     Level *get_level();
     int get_level_num();
@@ -71,6 +75,8 @@ public:
     // void update_display(); //I aussumsed it is used to update block
     Board();            // init
     ~Board(); // not sure if needed
+
+    
 };
 
 #endif

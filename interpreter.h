@@ -2,12 +2,15 @@
 #define INTERPRETER_H 
 #include "block.h"
 #include "board.h"
+#include "subject.h"
 #include <unordered_map>
 #include <iostream>
 #include <string>
 #include <functional>
 #include <memory>
 using namespace std;
+
+class Board; 
 
 class Interpreter {
     Board* board1;                      // Pointer to the game board

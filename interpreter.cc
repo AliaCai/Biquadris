@@ -114,7 +114,7 @@ void Interpreter::drop() {
     //    currentBlock->moveDown();
     //}
     //board1->drop();
-    board1->is_mD_valid();
+    board1->is_drop_valid();
     //board1->update_display();        // check impl
 }
 

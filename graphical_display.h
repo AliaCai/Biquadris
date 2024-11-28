@@ -8,6 +8,7 @@
 class GraphicalDisplay: public Observer {
     Board* subject;
     int top, bottom, left, right;
+    XWindow w;
 
     public:
     GraphicalDisplay(Board* subject, int top, int bottom, int left, int right); // constructor
