@@ -7,6 +7,12 @@
 #include "j_block.h"
 #include "block.h"
 #include "score.h"
+#include "level.h"
+#include "level0.h"
+#include "level1.h"
+#include "level2.h"
+#include "level3.h"
+#include "level4.h"
 #include <iostream>
 #include <memory>
 #include <vector>
@@ -67,7 +73,6 @@ int main()
 
     return 0;
     */
-    cout << "print" << endl;
 
     /*
     //score testing
@@ -80,4 +85,38 @@ int main()
     s.resetScore();
     cout << s.get_score() << " " << s.get_highScore() << endl;
     */
+    /*
+    //level2 testing---------------------------------
+     cout << "print" << endl;
+     unique_ptr<Level> level = make_unique<Level2>();
+     for (int i = 0; i < 10; i++)
+     {
+         unique_ptr<Block> cur_block = level->currentBlock();
+         level->set_seed(i);
+         cout << "i:" << i << " seed:" << level->get_seed() << " block:" << cur_block->get_type() << endl;
+     }
+ */
+    /*
+        // level0 testing---------------------------------
+        unique_ptr<Level> level = make_unique<Level0>("sequence2.txt", 0);
+
+        for (int i = 0; i < 20; ++i)
+        {
+            level->set_count(13);
+            cout << i % 8 << level->currentBlock()->get_type() << " end" << endl;
+        }
+    */
+
+    /*
+    //more level0 testing---------------------------------
+    unique_ptr<Block> cur_block = level->currentBlock();
+    cout << cur_block->get_type() << " end" << endl;
+
+    level->set_count(13);
+    unique_ptr<Block> next_block1 = level->currentBlock();
+    cout << next_block1->get_type() << " end" << endl;
+
+    level->set_count(15);
+    unique_ptr<Block> next_block2 = level->currentBlock();
+    cout << next_block2->get_type() << " end" << endl;*/
 }

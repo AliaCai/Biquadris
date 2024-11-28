@@ -41,6 +41,7 @@ char Level3::rand_gen()
     {
         return 'Z';
     }
+    return '_';
 }
 
 char Level3::non_random()

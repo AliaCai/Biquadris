@@ -9,8 +9,6 @@ using namespace std;
 
 char Level2::rand_gen()
 {
-    srand(seed);
-    seed += 1;
 
     int num = rand() % 7 + 1;
 
@@ -42,10 +40,13 @@ char Level2::rand_gen()
     {
         return 'Z';
     }
+    return '_';
 }
 
+void Level2::set_count(int count) {}
+void Level2::set_fileName(string fileName) {}
 unique_ptr<Block> Level2::currentBlock()
 {
     return createBlock(rand_gen(), 2);
 }
-Level2::Level2() : Level{2}, seed{0} {};
+Level2::Level2() : Level{2, 0} {};

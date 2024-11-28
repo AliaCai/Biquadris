@@ -13,10 +13,19 @@
 
 using namespace std;
 
-Level::Level(int level) : level{level}
+Level::Level(int level, int seed = 0) : level{level}, seed{seed}
 {
 }
 
+int Level::get_seed()
+{
+    return seed;
+}
+void Level::set_seed(int newSeed)
+{
+    seed = newSeed;
+    srand(seed);
+}
 int Level::get_level()
 {
     return level;

@@ -13,8 +13,8 @@ class Level0 : public Level
 public:
     int get_count();
     string get_fileName();
-    void set_count(int count);
-    void set_fileName(string fileName);
+    void set_count(int count) override;
+    void set_fileName(string fileName) override;
 
     char read_file();
     virtual unique_ptr<Block> currentBlock() override;

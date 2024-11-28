@@ -25,6 +25,7 @@ string Level0::get_fileName()
 void Level0::set_count(int count)
 {
     count = count;
+    // cout << "count:" << count << endl;
 }
 
 void Level0::set_fileName(string fileName)
@@ -34,28 +35,30 @@ void Level0::set_fileName(string fileName)
 
 char Level0::read_file()
 {
-    char type;
     ifstream f{fileName};
+    char type;
     int num = 0;
-    while (f >> type)
+    while (true)
     {
-        num += 1;
-        if (num == count)
+
+        while (f >> type)
         {
-            count += 1;
-            return type;
+            // cout << "type: " << type << " num: " << num << " count: " << count << endl;
+
+            if (num == count)
+            {
+                count++;
+                // cout << "Returning block type: " << type << endl;
+                return type;
+            }
+            num++;
         }
-    }
-    count = 0;
-    num = 0;
-    while (f >> type)
-    {
-        num += 1;
-        if (num == count)
-        {
-            count += 1;
-            return type;
-        }
+
+        // cout << "End of file reached. Restarting..." << endl;
+        f.close();
+        f.open(fileName);
+        count = count % num;
+        num = 0;
     }
 }
 
@@ -64,6 +67,6 @@ unique_ptr<Block> Level0::currentBlock()
     return createBlock(read_file(), 0);
 }
 
-Level0::Level0(string fileName = "", int count = 0) : Level{0}, fileName{fileName}, count{count}
+Level0::Level0(string fileName = "", int count = 0) : Level{0, 0}, fileName{fileName}, count{count}
 {
 }
