@@ -69,6 +69,7 @@ char Level3::non_random()
             return type;
         }
     }
+    return '_';
 }
 
 void Level3::random()
@@ -80,12 +81,12 @@ unique_ptr<Block> Level3::currentBlock()
 {
     if (nonRandomOn)
     {
-        return createBlock(non_random());
+        return createBlock(non_random(), 3);
     }
     else
     {
-        return createBlock(rand_gen());
+        return createBlock(rand_gen(), 3);
     }
 }
 
-Level3::Level3(bool nonRandomOn = true, int count = 0, string fileName = "") : Level{3}, nonRandomOn{true}, count{count}, fileName{fileName} { fileName }
+Level3::Level3(bool nonRandomOn = true, int count = 0, string fileName = "") : Level{3}, nonRandomOn{true}, count{count}, fileName{fileName} {}

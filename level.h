@@ -16,7 +16,7 @@ public:
     // for superclass
     int get_level();
     void set_level(int new_level);
-    std::unique_ptr<Block> createBlock(char type);
+    std::unique_ptr<Block> createBlock(char type, int level);
     Level(int level);
     virtual ~Level() = default;
 };

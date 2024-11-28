@@ -2,16 +2,18 @@
 #define SCORE_H
 #include <iostream>
 
-class Score {
+class Score
+{
     int score;
     int highscore;
 
-    public:
-    void cumulative_hs(int addBy);
+public:
+    void cumulative_s(int cur_level, int num_lines, int ori_level, int num_blocks);
     int get_score() const;
     int get_highScore() const;
     void resetScore();
     Score(int score, int highscore);
 };
 
+// culmative(cur_level, num_lines, ori_level, num_block);
 #endif

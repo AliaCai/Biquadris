@@ -7,6 +7,7 @@
 
 class Level2 : public Level
 {
+    int seed;
 
 public:
     char rand_gen();

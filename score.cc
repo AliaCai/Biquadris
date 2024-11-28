@@ -1,19 +1,28 @@
 #include "score.h"
 
-Score::Score(int highscore, int score): score{score}, highscore{highscore} {}
+Score::Score(int score = 0, int highscore = 0) : score{score}, highscore{highscore} {}
 
-void Score::resetScore() {
-    score = 0;
-}
-
-int Score::get_highScore() const {
+int Score::get_highScore() const
+{
     return highscore;
 }
 
-int Score::get_score() const {
+int Score::get_score() const
+{
     return score;
 }
 
-void Score::cumulative_hs(int addBy) {
-    highscore += addBy;
+void Score::resetScore()
+{
+    if (score > highscore)
+    {
+        highscore = score;
+    }
+    score = 0;
+}
+
+void Score::cumulative_s(int cur_level = 0, int num_lines = 0, int ori_level = 0, int num_blocks = 0)
+{
+    score += (cur_level + num_lines) * (cur_level + num_lines);
+    score += (ori_level + num_blocks) * (ori_level + num_blocks);
 }

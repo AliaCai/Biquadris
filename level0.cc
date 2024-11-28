@@ -61,7 +61,7 @@ char Level0::read_file()
 
 unique_ptr<Block> Level0::currentBlock()
 {
-    return createBlock(read_file());
+    return createBlock(read_file(), 0);
 }
 
 Level0::Level0(string fileName = "", int count = 0) : Level{0}, fileName{fileName}, count{count}

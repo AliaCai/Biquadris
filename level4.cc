@@ -69,6 +69,7 @@ char Level4::non_random()
             return type;
         }
     }
+    return '_';
 }
 
 void Level4::random()
@@ -80,11 +81,11 @@ unique_ptr<Block> Level4::currentBlock()
 {
     if (nonRandomOn)
     {
-        return createBlock(non_random());
+        return createBlock(non_random(), 4);
     }
     else
     {
-        return createBlock(rand_gen());
+        return createBlock(rand_gen(), 4);
     }
 }
 
