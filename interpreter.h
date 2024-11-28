@@ -12,7 +12,7 @@ using namespace std;
 class Interpreter {
     Board* board1;                      // Pointer to the game board
     Block* currentBlock;               // Currently active block
-    //int& level;                         // Current game level
+    //int level;                         // Current game level
     std::string sequenceFile;          // File used for norandom or sequence commands
     size_t sequenceIndex;              // Current index in sequence file
     bool isRandom;                     // Randomness flag for block generation

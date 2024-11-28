@@ -67,6 +67,4 @@ unique_ptr<Block> Level0::currentBlock()
     return createBlock(read_file(), 0);
 }
 
-Level0::Level0(string fileName = "", int count = 0) : Level{0, 0}, fileName{fileName}, count{count}
-{
-}
+Level0::Level0(string fileName = "", int count = 0) : Level{0, 0}, count{count}, fileName{fileName} {}

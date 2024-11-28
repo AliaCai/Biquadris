@@ -96,7 +96,7 @@ void Interpreter::moveDown() {
 void Interpreter::rotateClockwise(){
     //currentBlock->rotateClockwise();
     //board1->is_rotation_valid(&(currentBlock->get_curShape()), currentBlock->get_type());
-    if (board1->is_rotate_valid()) {
+    if (board1->is_rotateCW_valid()) {
         currentBlock->rotateClockwise();
     }
 }
@@ -104,7 +104,7 @@ void Interpreter::rotateClockwise(){
 void Interpreter::rotateCounterClockwise(){
     //currentBlock->rotateCounterClockwise();
     //board1->is_rotation_valid(&(currentBlock->get_curShape()), currentBlock->get_type());
-    if (board1->is_rotate_valid()) {
+    if (board1->is_rotateCCW_valid()) {
         currentBlock->rotateCounterClockwise();
     }
 }
@@ -113,7 +113,8 @@ void Interpreter::drop() {
     //while (board1->is_mD_valid()) {
     //    currentBlock->moveDown();
     //}
-    board1->drop();
+    //board1->drop();
+    board1->is_mD_valid();
     //board1->update_display();        // check impl
 }
 
@@ -138,7 +139,6 @@ void Interpreter::disableRandom(const std::string& sequenceFile) {
 
 void Interpreter::restart() {
     board1->restart();
-    level = 0;
     currentBlock = nullptr;
     isRandom = true;
     sequenceIndex = 0;

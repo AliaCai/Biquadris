@@ -133,24 +133,24 @@ void Board::upd_board()
     std::vector<std::vector<char>> new_board(18, std::vector<char>(11, '.'));
     board = new_board;
 
-    for (auto i = 0; i < dropped_blocks.size(); ++i) // loop through all the dropped block
+    for (size_t i = 0; i < dropped_blocks.size(); ++i) // loop through all the dropped block
     {
 
         vector<vector<int>> d_block = dropped_blocks.at(i)->getPosition();
         char new_type = dropped_blocks.at(i)->get_type();
-        for (int j = 0; i < 4; ++i) // loop through all the points of the dropped block
+        for (int j = 0; j < 4; ++j) // loop through all the points of the dropped block
         {
 
             vector<int> point = d_block.at(j);
-            int x = point.at(0);
-            int y = point.at(1);
+            size_t x = point.at(0);
+            size_t y = point.at(1);
 
-            for (auto r = 0; r < board.size(); ++r)
+            for (size_t r = 0; r < board.size(); ++r)
             {
                 vector<char> line = board.at(r); // 1 row
-                for (auto c = 0; c < line.size(); ++c)
+                for (size_t c = 0; c < line.size(); ++c)
                 {
-                    char old_char = line.at(c);
+                    //char old_char = line.at(c);
                     if (r == y && c == x) // the cell equals to the point
                     {
                         board.at(r).at(c) = new_type; // update the character
@@ -166,7 +166,7 @@ void Board::restart()
     score.resetScore();
     fileName = "";
     count = 0;
-    level = make_unique<Level>();
+    level = make_unique<Level0>(fileName, count); //Sampoorna changed from Level to Level0
     gen_blocks(); // update cur_block and next_block
     if (!is_block_valid())
     {
@@ -186,13 +186,13 @@ bool Board::is_block_valid() // game over method
 
         vector<int> point = pts_forshadow.at(i);
 
-        int x = point.at(0);
-        int y = point.at(1);
+        size_t x = point.at(0);
+        size_t y = point.at(1);
 
-        for (auto a = 0; a < board.size(); ++a)
+        for (size_t a = 0; a < board.size(); ++a)
         {
             vector<char> line = board.at(a);
-            for (auto b = 0; b < line.size(); ++b)
+            for (size_t b = 0; b < line.size(); ++b)
             {
                 if (a == y && b == x) // the cell equals to the point //reach bottom
                 {
@@ -211,13 +211,13 @@ bool Board::is_mL_valid()
 
         vector<int> point = pts_forshadow.at(i);
 
-        int x = point.at(0);
-        int y = point.at(1);
+        size_t x = point.at(0);
+        size_t y = point.at(1);
 
-        for (auto a = 0; a < board.size(); ++a)
+        for (size_t a = 0; a < board.size(); ++a)
         {
             vector<char> line = board.at(a);
-            for (auto b = 0; b < line.size(); ++b)
+            for (size_t b = 0; b < line.size(); ++b)
             {
                 if (a == y && b == x) // the cell equals to the point
                 {
@@ -239,13 +239,13 @@ bool Board::is_mR_valid()
 
         vector<int> point = pts_forshadow.at(i);
 
-        int x = point.at(0);
-        int y = point.at(1);
+        size_t x = point.at(0);
+        size_t y = point.at(1);
 
-        for (auto a = 0; a < board.size(); ++a)
+        for (size_t a = 0; a < board.size(); ++a)
         {
             vector<char> line = board.at(a);
-            for (auto b = 0; b < line.size(); ++b)
+            for (size_t b = 0; b < line.size(); ++b)
             {
                 if (a == y && b == x) // the cell equals to the point
                 {
@@ -267,13 +267,13 @@ bool Board::is_rotateCW_valid()
 
         vector<int> point = pts_forshadow.at(i);
 
-        int x = point.at(0);
-        int y = point.at(1);
+        size_t x = point.at(0);
+        size_t y = point.at(1);
 
-        for (auto a = 0; a < board.size(); ++a)
+        for (size_t a = 0; a < board.size(); ++a)
         {
             vector<char> line = board.at(a);
-            for (auto b = 0; b < line.size(); ++b)
+            for (size_t b = 0; b < line.size(); ++b)
             {
                 if (a == y && b == x) // the cell equals to the point
                 {
@@ -295,13 +295,13 @@ bool Board::is_rotateCCW_valid()
 
         vector<int> point = pts_forshadow.at(i);
 
-        int x = point.at(0);
-        int y = point.at(1);
+        size_t x = point.at(0);
+        size_t y = point.at(1);
 
-        for (auto a = 0; a < board.size(); ++a)
+        for (size_t a = 0; a < board.size(); ++a)
         {
             vector<char> line = board.at(a);
-            for (auto b = 0; b < line.size(); ++b)
+            for (size_t b = 0; b < line.size(); ++b)
             {
                 if (a == y && b == x) // the cell equals to the point
                 {
@@ -341,13 +341,13 @@ bool Board::is_mD_valid()
 
         vector<int> point = pts_forshadow.at(i);
 
-        int x = point.at(0);
-        int y = point.at(1);
+        size_t x = point.at(0);
+        size_t y = point.at(1);
 
-        for (auto a = 0; a < board.size(); ++a)
+        for (size_t a = 0; a < board.size(); ++a)
         {
             vector<char> line = board.at(a);
-            for (auto b = 0; b < line.size(); ++b)
+            for (size_t b = 0; b < line.size(); ++b)
             {
                 if (a == y && b == x) // the cell equals to the point //reach bottom
                 {
@@ -367,17 +367,18 @@ bool Board::is_drop_valid()
     while (is_mD_valid()) // move down while it is valid
     {
     }
+    return true;
 }
 
 // clears:------------------------------------------------------------------------
 vector<int> Board::clear_line_valid()
 {
     vector<int> n_cl;
-    for (auto r = 0; r < board.size(); ++r)
+    for (size_t r = 0; r < board.size(); ++r)
     {
         int num_col = 0;                 // 11
         vector<char> line = board.at(r); // 1 row
-        for (auto c = 0; c < line.size(); ++c)
+        for (size_t c = 0; c < line.size(); ++c)
         {
             char cell = board.at(r).at(c);
             if (cell != '.')
@@ -395,15 +396,15 @@ vector<int> Board::clear_line_valid()
 
 void Board::clear_block_points(int line)
 {
-    for (auto i = 0; i < dropped_blocks.size(); ++i) // loop through all the dropped block
+    for (size_t i = 0; i < dropped_blocks.size(); ++i) // loop through all the dropped block
     {
 
         vector<vector<int>> d_block = dropped_blocks.at(i)->getPosition();
         int d_b_c = dropped_blocks.at(i)->get_cells_left(); // dropped block cells
-        for (int j = 0; i < 4; ++i)                         // loop through all the points of the dropped block
+        for (int j = 0; j < 4; ++j)                         // loop through all the points of the dropped block
         {
             vector<int> point = d_block.at(j);
-            int x = point.at(0);
+            //int x = point.at(0);
             int y = point.at(1);
 
             if (y == line)
@@ -444,7 +445,7 @@ void Board::clear_lines()
 {
     vector<int> cl_l = clear_line_valid();
     int cl_len = 0;
-    for (int i = 0; i < cl_l.size(); ++i)
+    for (size_t i = 0; i < cl_l.size(); ++i)
     {
         clear_block_points(cl_l.at(i));
         cl_len++;
@@ -453,15 +454,11 @@ void Board::clear_lines()
 }
 //------------------------------------------------------------------------------------------------------------
 
-Board::Board() : board(18, std::vector<char>(11, '.'))
-{
-    score = Score(0, 0);
-    fileName = "";
-    count = 0;
-    level = make_unique<Level>();
-    gen_blocks(); // update cur_block and next_block
-    if (!is_block_valid())
-    {
+Board::Board() : score(0, 0), fileName{""}, count{0}, level(make_unique<Level0>(fileName, count)), board(18, vector<char>(11, '.')) {
+    gen_blocks(); // Update cur_block and next_block
+    if (!is_block_valid()) {
         cout << "GAME END" << endl;
     }
 }
+
+Board::~Board() = default;

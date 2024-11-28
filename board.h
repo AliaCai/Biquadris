@@ -70,7 +70,7 @@ public:
 
     // void update_display(); //I aussumsed it is used to update block
     Board();            // init
-    ~Board() = default; // not sure if needed
+    ~Board(); // not sure if needed
 };
 
 #endif
