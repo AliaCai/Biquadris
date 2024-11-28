@@ -18,7 +18,8 @@ public:
     bool is_block_valid();
     void update_display();
     void clear_last_line();
-    Board(int score, int level, int width, int height, int highscore);
+    void restart();
+    Board();
     ~Board(); // not sure if needed
 };
 

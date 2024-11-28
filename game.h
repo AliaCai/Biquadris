@@ -3,13 +3,18 @@
 #include <iostream>
 #include "interpreter.h"
 #include "board.h"
+#include <memory>
+using namespace std;
+
+class Board;
+class Interpreter;
 
 class Game {
     //Board* b1;
     //Board* b2;
 
-    std::unique_ptr<Board> b1, b2;
-    std::unique_ptr<Interpreter> interpreter1, interpreter2;
+    unique_ptr<Board> b1, b2;
+    unique_ptr<Interpreter> interpreter1, interpreter2;
     bool player1;
 
     public:
