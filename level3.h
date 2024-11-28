@@ -10,6 +10,7 @@ class Level3 : public Level
     bool nonRandomOn;
     int count;
     string fileName;
+    // maybe seed;
 
 public:
     char rand_gen();

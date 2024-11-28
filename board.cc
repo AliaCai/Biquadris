@@ -13,7 +13,7 @@
 using namespace std;
 
 // getters
-int Board::get_score()
+Score Board::get_score()
 {
     return score;
 }

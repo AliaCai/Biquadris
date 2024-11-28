@@ -8,7 +8,7 @@
 
 class Board
 {
-    int score, highscore;
+    Score score;
     // for levels:
     string fileName;
     int count;
@@ -17,12 +17,14 @@ class Board
     std::unique_ptr<Level> level; // change to shared pointer if gen_currBlock does not work;
     std::unique_ptr<Block> cur_block;
     std::unique_ptr<Block> next_block;
+
+    // boards
     std::vector<std::vector<char>> board;
     std::vector<std::unique_ptr<Block>> dropped_blocks;
 
 public:
     // getter
-    int get_score();
+    Score get_score();
     Level *get_level();
     int get_level_num();
     int get_highscore();
