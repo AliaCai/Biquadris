@@ -26,7 +26,7 @@ class Interpreter {
 
     
     //void clearRows();
-    void lockBlock();
+    //void lockBlock();
 
     public:
         // Constructor
@@ -44,9 +44,34 @@ class Interpreter {
         void levelDown();
         void enableRandom();
         void disableRandom(const std::string& sequenceFile);
-        void setBlock(const std::string& blockType);
-        void executeSequence(const std::string& sequenceFile);
+        // i don't think we need setBlock
+        //void setBlock(const std::string& blockType);
+        //void executeSequence(const std::string& sequenceFile);
+        void executeCommand(Command cmd);
         void restart();
+
+        // enum for commands
+        enum class Command {
+            Left,
+            Right,
+            Down,
+            Clockwise,
+            CounterClockwise,
+            Drop,
+            LevelUp,
+            LevelDown,
+            NoRandom,
+            Random,
+            //Sequence,
+            I,
+            J,
+            L,
+            O,
+            S,
+            T,
+            Z,
+            Restart
+    };
 };
 
 
