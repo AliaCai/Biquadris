@@ -3,6 +3,7 @@
 #include <string>
 using namespace std;
 
+/*
 Interpreter::Interpreter(Board* b1): board1{b1}, currentBlock{nullptr}, sequenceIndex{0}, isRandom{true} {
     commandMap = {
                {"left", moveLeft()},
@@ -26,6 +27,56 @@ Interpreter::Interpreter(Board* b1): board1{b1}, currentBlock{nullptr}, sequence
                {"restart", restart()}                           //
     };
 }
+*/
+
+// constructor
+Interpreter::Interpreter(Board* b1)
+    : board1{b1}, currentBlock{nullptr}, sequenceIndex{0}, isRandom{true} {}
+
+void Interpreter::executeCommand(Command cmd) {
+    switch (cmd) {
+        case Command::Left:
+            moveLeft();
+            break;
+        case Command::Right:
+            moveRight();
+            break;
+        case Command::Down:
+            moveDown();
+            break;
+        case Command::Clockwise:
+            rotateClockwise();
+            break;
+        case Command::CounterClockwise:
+            rotateCounterClockwise();
+            break;
+        case Command::Drop:
+            drop();
+            break;
+        case Command::LevelUp:
+            levelUp();
+            break;
+        case Command::LevelDown:
+            levelDown();
+            break;
+        case Command::NoRandom:
+            disableRandom(sequenceFile);
+            break;
+        case Command::Random:
+            enableRandom();
+            break;
+        //case Command::Sequence:
+            // Add sequence handling logic here
+        //    break;
+        case Command::Restart:
+            restart();
+            break;
+        default:
+            // Handle setting blocks
+            break;
+    }
+}
+
 
 void Interpreter::moveLeft() {
     //board1->is_mL_valid(currentBlock, 'L');
@@ -62,16 +113,16 @@ void Interpreter::drop() {
     //while (board1->is_mD_valid()) {
     //    currentBlock->moveDown();
     //}
-    baord1->drop();
+    board1->drop();
     //board1->update_display();        // check impl
 }
 
 void Interpreter::levelUp() {
-    baord1->level_up();
+    board1->level_up();
 }
 
 void Interpreter::levelDown() {
-    baord1->level_down();
+    board1->level_down();
 }
 
 void Interpreter::enableRandom() {
