@@ -5,32 +5,40 @@
 #include "level0.h"
 #include "level1.h"
 #include "level2.h"
-#include "level3.h"
-#include "level4.h"
 #include "score.h"
 #include "game.h"
 
 using namespace std;
 
-// getters
+// getters------------------------------------------------------------
 Score Board::get_score()
 {
     return score;
 }
 
+int Board::score_num()
+{
+    return score.get_score();
+};
+
 int Board::get_highscore()
 {
-    return get_highscore();
+    return score.get_highScore();
 }
 
 Level *Board::get_level()
 {
-    return level.get(); // why it does not work?
+    return level.get();
 }
 
 int Board::get_level_num()
 {
     return level->get_level();
+}
+
+string Board::get_fileName()
+{
+    return fileName;
 }
 
 vector<vector<int>> Board::get_curBlock()
@@ -43,58 +51,242 @@ vector<vector<int>> Board::get_nextBlock()
     return next_block->getPosition();
 }
 
-string Board::get_fileName()
+// setter------------------------------------------------------------
+void Board::set_fileName(string newFileName)
 {
-    return fileName;
+    fileName = newFileName;
 }
 
-// mutator
-void Board::set_fileName(string fileName)
+void Board::set_seed(int newSeed)
 {
-    fileName = fileName;
+    level->set_seed(newSeed);
 }
 
-unique_ptr<Block> Board::gen_curBlock() // need to fix level, curBlock type + fields
+void Board::set_level()
 {
     if (get_level_num() == 0)
     {
-        Level0 L0{fileName, count};
-        level = make_unique<Level>(&L0);
+        level = make_unique<Level0>(fileName, count);
+    }
+    else if (get_level_num() == 1)
+    {
+        level = make_unique<Level1>();
+    }
+    else if (get_level_num() == 2)
+    {
+        level = make_unique<Level2>();
+    }
+}
+void Board::level_up()
+{ // 0->1, 1->2
+    if (get_level_num() == 0)
+    {
+        level = make_unique<Level1>();
+    }
+    else if (get_level_num() == 1)
+    {
+        level = make_unique<Level2>();
+    }
+}
+
+void Board::level_down()
+{ // 1->0, 2->1
+    if (get_level_num() == 1)
+    {
+        level = make_unique<Level0>(fileName, count);
+    }
+    else if (get_level_num() == 2)
+    {
+        level = make_unique<Level1>();
+    }
+}
+
+void Board::gen_blocks() // level 0-2
+{
+    if (get_level_num() == 0)
+    {
+        cur_block = level->currentBlock();
+        level->set_count(count + 1);
+        next_block = level->currentBlock();
+        level->set_count(count); // change count back
     }
 
     else if (get_level_num() == 1)
     {
-        Level1 L1{};
-        level = make_unique<Level>(&L1);
+        cur_block = level->currentBlock();
+        next_block = level->currentBlock();
     }
     else if (get_level_num() == 2)
     {
-        Level2 L2{};
-        level = make_unique<Level>(&L2);
+        cur_block = level->currentBlock();
+        next_block = level->currentBlock();
     }
-
-    /* girls I am doomed, I am just going to work with lev 0-2 first
-    else if (get_level_num() == 3)
-    {
-        Level3 L3{};
-        level = make_unique<Level>(&L3);
-    }
-    else if (get_level_num() == 4)
-    {
-        Level4 L4{};
-        level = make_unique<Level>(&L4);
-    }*/
-};
 }
-;
-}
-;
 
-void Board::init()
+void Board::upd_dropped_blocks(unique_ptr<Block> new_dropped_b)
 {
-    score = 0;
-    highscore = 0;
+    dropped_blocks.emplace_back(std::move(new_dropped_b));
+}
+
+void Board::upd_board()
+{
+    for (auto i = 0; i < dropped_blocks.size(); ++i) // loop through all the dropped block
+    {
+
+        vector<vector<int>> d_block = dropped_blocks.at(i)->getPosition();
+        char new_type = dropped_blocks.at(i)->get_type();
+        for (int j = 0; i < 4; ++i) // loop through all the points of the dropped block
+        {
+
+            vector<int> point = d_block.at(j);
+            int x = point.at(0);
+            int y = point.at(1);
+
+            for (auto a = 0; a < board.size(); ++a)
+            {
+                vector<char> line = board.at(a);
+                for (auto b = 0; b < line.size(); ++b)
+                {
+                    char old_char = line.at(b);
+                    if (a == y && b == x) // the cell equals to the point
+                    {
+                        board.at(a).at(b) = new_type; // update the character
+                    }
+                }
+            }
+        }
+    }
+}
+
+Board::Board() : board(18, std::vector<char>(11, '.'))
+{
+    score = Score(0, 0);
     fileName = "";
-    level{0, nullptr};          // edit level fields later on
-    cur_block = gen_curBlock(); // cur_block is updated
+    count = 0;
+    level = make_unique<Level>();
+    gen_blocks(); // update cur_block and next_block
+}
+
+void Board::restart()
+{
+    score.resetScore();
+    fileName = "";
+    count = 0;
+    level = make_unique<Level>();
+    gen_blocks(); // update cur_block and next_block
+    dropped_blocks.clear();
+    std::vector<std::vector<char>> new_board(18, std::vector<char>(11, '.'));
+    board = new_board;
+}
+
+bool Board::is_mL_valid()
+{
+    vector<vector<int>> pts_forshadow = cur_block->p_after_left();
+    for (auto i = 0; i < 4; ++i) // loop through each point
+    {
+
+        vector<int> point = pts_forshadow.at(i);
+
+        int x = point.at(0);
+        int y = point.at(1);
+
+        for (auto a = 0; a < board.size(); ++a)
+        {
+            vector<char> line = board.at(a);
+            for (auto b = 0; b < line.size(); ++b)
+            {
+                if (a == y && b == x) // the cell equals to the point
+                {
+                    return false;
+                }
+            }
+        }
+    }
+
+    cur_block->moveLeft(); // the points are not occupied
+    return true;
+}
+
+bool Board::is_mR_valid()
+{
+    vector<vector<int>> pts_forshadow = cur_block->p_after_right();
+    for (auto i = 0; i < 4; ++i) // loop through each point
+    {
+
+        vector<int> point = pts_forshadow.at(i);
+
+        int x = point.at(0);
+        int y = point.at(1);
+
+        for (auto a = 0; a < board.size(); ++a)
+        {
+            vector<char> line = board.at(a);
+            for (auto b = 0; b < line.size(); ++b)
+            {
+                if (a == y && b == x) // the cell equals to the point
+                {
+                    return false;
+                }
+            }
+        }
+    }
+
+    cur_block->moveRight(); // the points are not occupied
+    return true;
+}
+
+bool Board::is_rotateCW_valid()
+{
+    vector<vector<int>> pts_forshadow = cur_block->p_after_rotateCW();
+    for (auto i = 0; i < 4; ++i) // loop through each point
+    {
+
+        vector<int> point = pts_forshadow.at(i);
+
+        int x = point.at(0);
+        int y = point.at(1);
+
+        for (auto a = 0; a < board.size(); ++a)
+        {
+            vector<char> line = board.at(a);
+            for (auto b = 0; b < line.size(); ++b)
+            {
+                if (a == y && b == x) // the cell equals to the point
+                {
+                    return false;
+                }
+            }
+        }
+    }
+
+    cur_block->rotateClockwise(); // the points are not occupied
+    return true;
+}
+
+bool Board::is_rotateCCW_valid()
+{
+    vector<vector<int>> pts_forshadow = cur_block->p_after_rotateCCW();
+    for (auto i = 0; i < 4; ++i) // loop through each point
+    {
+
+        vector<int> point = pts_forshadow.at(i);
+
+        int x = point.at(0);
+        int y = point.at(1);
+
+        for (auto a = 0; a < board.size(); ++a)
+        {
+            vector<char> line = board.at(a);
+            for (auto b = 0; b < line.size(); ++b)
+            {
+                if (a == y && b == x) // the cell equals to the point
+                {
+                    return false;
+                }
+            }
+        }
+    }
+
+    cur_block->rotateCounterClockwise(); // the points are not occupied
+    return true;
 }
