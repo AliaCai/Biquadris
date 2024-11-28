@@ -12,38 +12,61 @@
 // 2. go to the end -> hasn't stop playing ->read the file again
 using namespace std;
 
-char Level0::read_file()
+int Level0::get_count()
 {
-    char type;
-    ifstream f{fileName};
-    int num = 0;
-    while (f >> type)
-    {
-        num += 1;
-        if (num == count)
-        {
-            count += 1;
-            return type;
-        }
-    }
-    count = 0;
-    num = 0;
-    while (f >> type)
-    {
-        num += 1;
-        if (num == count)
-        {
-            count += 1;
-            return type;
-        }
-    }
-}
-Block *Level0::currentBlock()
-{
-    block = createBlock(read_file());
-    return block;
+    return count;
 }
 
-Level0::Level0(string fileName = "") : Level{0, nullptr}, fileName{fileName}, count{0}
+string Level0::get_fileName()
+{
+    return fileName;
+}
+
+void Level0::set_count(int count)
+{
+    count = count;
+    // cout << "count:" << count << endl;
+}
+
+void Level0::set_fileName(string fileName)
+{
+    fileName = fileName;
+}
+
+char Level0::read_file()
+{
+    ifstream f{fileName};
+    char type;
+    int num = 0;
+    while (true)
+    {
+
+        while (f >> type)
+        {
+            // cout << "type: " << type << " num: " << num << " count: " << count << endl;
+
+            if (num == count)
+            {
+                count++;
+                // cout << "Returning block type: " << type << endl;
+                return type;
+            }
+            num++;
+        }
+
+        // cout << "End of file reached. Restarting..." << endl;
+        f.close();
+        f.open(fileName);
+        count = count % num;
+        num = 0;
+    }
+}
+
+unique_ptr<Block> Level0::currentBlock()
+{
+    return createBlock(read_file(), 0);
+}
+
+Level0::Level0(string fileName = "", int count = 0) : Level{0, 0}, fileName{fileName}, count{count}
 {
 }

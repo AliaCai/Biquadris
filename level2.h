@@ -9,9 +9,14 @@ class Level2 : public Level
 {
 
 public:
-    char rand_gen() override; // all blocks have equal probability
-    Block *currentBlock() override;
+    void set_count(int count) override;          // will not be used
+    void set_fileName(string fileName) override; // will not be used
+    char rand_gen();
+    unique_ptr<Block> currentBlock() override;
     Level2();
 };
 
 #endif
+
+// Level *L= &Level2();
+// currentBlock= std::move (L->currentBlock());

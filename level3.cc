@@ -41,6 +41,7 @@ char Level3::rand_gen()
     {
         return 'Z';
     }
+    return '_';
 }
 
 char Level3::non_random()
@@ -69,6 +70,7 @@ char Level3::non_random()
             return type;
         }
     }
+    return '_';
 }
 
 void Level3::random()
@@ -76,17 +78,16 @@ void Level3::random()
     nonRandomOn = false;
 }
 
-Block *Level3::currentBlock()
+unique_ptr<Block> Level3::currentBlock()
 {
     if (nonRandomOn)
     {
-        block = createBlock(non_random());
+        return createBlock(non_random(), 3);
     }
     else
     {
-        block = createBlock(rand_gen());
+        return createBlock(rand_gen(), 3);
     }
-    return block;
 }
 
-Level3::Level3(string fileName = "") : Level{3, nullptr}, nonRandomOn{true}, count{0}, fileName{fileName} {}
+Level3::Level3(bool nonRandomOn = true, int count = 0, string fileName = "") : Level{3}, nonRandomOn{true}, count{count}, fileName{fileName} {}

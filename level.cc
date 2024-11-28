@@ -1,7 +1,8 @@
 #include "level.h"
 #include <iostream>
+#include <memory>
+#include <utility>
 #include "block.h"
-
 #include "i_block.h"
 #include "j_block.h"
 #include "l_block.h"
@@ -12,10 +13,19 @@
 
 using namespace std;
 
-Level::Level(int level, Block *block) : level{level}, block{block}
+Level::Level(int level, int seed = 0) : level{level}, seed{seed}
 {
 }
 
+int Level::get_seed()
+{
+    return seed;
+}
+void Level::set_seed(int newSeed)
+{
+    seed = newSeed;
+    srand(seed);
+}
 int Level::get_level()
 {
     return level;
@@ -26,39 +36,47 @@ void Level::set_level(int new_level)
     level = new_level;
 }
 
-Block *Level::createBlock(char type)
+unique_ptr<Block> Level::createBlock(char type, int level)
 {
 
     if (type == 'I')
     {
-        return new IBlock();
+
+        unique_ptr<Block> iblock = make_unique<IBlock>(level);
+        return iblock;
     }
     else if (type == 'J')
     {
-        return new JBlock();
+        unique_ptr<Block> jblock = make_unique<JBlock>(level);
+        return jblock;
     }
     else if (type == 'L')
     {
-        return new LBlock();
+        unique_ptr<Block> lblock = make_unique<LBlock>(level);
+        return lblock;
     }
     else if (type == 'O')
     {
-        return new OBlock();
+        unique_ptr<Block> oblock = make_unique<OBlock>(level);
+        return oblock;
     }
     else if (type == 'S')
     {
-        return new SBlock();
+        unique_ptr<Block> sblock = make_unique<SBlock>(level);
+        return sblock;
     }
     else if (type == 'T')
     {
-        return new TBlock();
+        unique_ptr<Block> tblock = make_unique<TBlock>(level);
+        return tblock;
     }
     else if (type == 'Z')
     {
-        return new ZBlock();
+        unique_ptr<Block> zblock = make_unique<ZBlock>(level);
+        return zblock;
     }
     else
     {
-        return nullptr;
+        return unique_ptr<Block>(); // null-ptr
     }
 }

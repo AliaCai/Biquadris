@@ -10,13 +10,17 @@ class Level3 : public Level
     bool nonRandomOn;
     int count;
     string fileName;
+    // maybe seed;
 
 public:
-    char rand_gen() override;
+    char rand_gen();
     char non_random();
     void random();
-    Block *currentBlock();
-    Level3(std::string);
+    unique_ptr<Block> currentBlock();
+    Level3(bool, int, std::string);
 };
 
 #endif
+
+// Level *L= &Level3(nonRandomOn, count, fileName);
+// currentBlock= std::move (L->currentBlock());

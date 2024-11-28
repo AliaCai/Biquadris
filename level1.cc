@@ -9,8 +9,9 @@ using namespace std;
 
 char Level1::rand_gen()
 {
-    level = 1;
+
     int num = rand() % 12 + 1;
+    cout << "NUM: " << num << endl;
     // 1,2 (I),3,4(O),5,6(L),7,8(J),9,10(T),11(S),12(Z)
     if (num == 1 || num == 2)
     {
@@ -40,12 +41,14 @@ char Level1::rand_gen()
     {
         return 'Z';
     }
+    return '_';
 }
+void Level1::set_count(int count) {}
+void Level1::set_fileName(string fileName) {}
 
-Block *Level1::currentBlock()
+unique_ptr<Block> Level1::currentBlock()
 {
-    block = createBlock(rand_gen());
-    return block;
+    return createBlock(rand_gen(), 1);
 }
 
-Level1::Level1() = default;
+Level1::Level1() : Level{1, 0} {};
