@@ -85,17 +85,18 @@ int main()
     s.resetScore();
     cout << s.get_score() << " " << s.get_highScore() << endl;
     */
+
+    // level2 testing---------------------------------
+    cout << "print" << endl;
     /*
-    //level2 testing---------------------------------
-     cout << "print" << endl;
-     unique_ptr<Level> level = make_unique<Level2>();
-     for (int i = 0; i < 10; i++)
-     {
-         unique_ptr<Block> cur_block = level->currentBlock();
-         level->set_seed(i);
-         cout << "i:" << i << " seed:" << level->get_seed() << " block:" << cur_block->get_type() << endl;
-     }
- */
+unique_ptr<Level> level = make_unique<Level2>();
+for (int i = 0; i < 10; i++)
+{
+    unique_ptr<Block> cur_block = level->currentBlock();
+    level->set_seed(i);
+    cout << "i:" << i << " seed:" << level->get_seed() << " block:" << cur_block->get_type() << endl;
+}
+*/
     /*
         // level0 testing---------------------------------
         unique_ptr<Level> level = make_unique<Level0>("sequence2.txt", 0);
