@@ -19,9 +19,9 @@ public:
     char read_file();
     virtual unique_ptr<Block> currentBlock() override;
     Level0(std::string, int);
-
-    // call Levellevel0(fileName, count)
-    //
 };
 
 #endif
+
+// Level *L= &Level0(fileName, count);
+// currentBlock= std::move (L->currentBlock());

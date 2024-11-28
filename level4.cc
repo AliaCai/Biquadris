@@ -76,17 +76,16 @@ void Level4::random()
     nonRandomOn = false;
 }
 
-Block *Level4::currentBlock()
+unique_ptr<Block> Level4::currentBlock()
 {
     if (nonRandomOn)
     {
-        block = createBlock(non_random());
+        return createBlock(non_random());
     }
     else
     {
-        block = createBlock(rand_gen());
+        return createBlock(rand_gen());
     }
-    return block;
 }
 
-Level4::Level4(string fileName = "") : Level{4, nullptr}, nonRandomOn{true}, count{0}, fileName{fileName} {}
+Level4::Level4(bool nonRandom = true, int count = 0, string fileName = "") : Level{4}, nonRandomOn{nonRandomOn}, count{count}, fileName{fileName} {}

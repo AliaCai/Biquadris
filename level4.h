@@ -15,8 +15,11 @@ public:
     char rand_gen();
     char non_random();
     void random();
-    Block *currentBlock();
-    Level4(std::string);
+    unique_ptr<Block> currentBlock();
+    Level4(bool, int, std::string);
 };
 
 #endif
+
+// Level *L= &Level4(nonRandomOn, count, fileName);
+// currentBlock= std::move (L->currentBlock());
