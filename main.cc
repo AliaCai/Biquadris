@@ -13,14 +13,43 @@
 #include "level2.h"
 #include "level3.h"
 #include "level4.h"
+#include "game.h"
 #include <iostream>
 #include <memory>
 #include <vector>
 using namespace std;
 
-int main()
-{
-    cout << "print" << endl;
+int main() {
+    // Create the game instance
+    Game game;
+
+    // Print initial state of the boards
+    game.printBoards();
+
+    // Main game loop
+    cout << "Starting the game! Player 1 begins." << endl;
+    while (true) {
+        // Display whose turn it is
+        cout << "Player " << game.get_turn() << "'s turn." << endl;
+
+        // Allow the player to take their turn
+        game.take_turn();
+
+        // Print updated boards
+        game.printBoards();
+
+        // Check for a win condition
+        if (!game.has_won()) {
+            cout << "Player " << game.get_turn() << " has lost!" << endl;
+            cout << "Game over!" << endl;
+            break;
+        }
+    }
+
+    // Reset the game after it ends (optional)
+    game.reset();
+    return 0;
+}
     /*
     vector<unique_ptr<Block>> blocks;
 
@@ -88,7 +117,7 @@ int main()
     */
 
     // level2 testing---------------------------------
-
+    //cout << "print" << endl;
     /*
 unique_ptr<Level> level = make_unique<Level2>();
 for (int i = 0; i < 10; i++)
@@ -121,4 +150,3 @@ for (int i = 0; i < 10; i++)
     level->set_count(15);
     unique_ptr<Block> next_block2 = level->currentBlock();
     cout << next_block2->get_type() << " end" << endl;*/
-}

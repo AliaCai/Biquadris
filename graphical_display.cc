@@ -12,5 +12,5 @@ GraphicalDisplay::~GraphicalDisplay() {
 
 //notify function
 void GraphicalDisplay::notify() {
-
+    
 }

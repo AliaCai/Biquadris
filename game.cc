@@ -21,7 +21,8 @@ Game::Game() : player1{true}
 void Game::take_turn()
 {
     string command;
-    cin >> command;
+
+    while(cin >> command){
 
     Interpreter::Command cmd;
 
@@ -58,7 +59,10 @@ void Game::take_turn()
         interpreter2->executeCommand(cmd);
     }
 
-    player1 = !player1;
+    if (command == "drop") player1 = !player1;
+
+    
+    }
 }
 
 bool Game::has_won()
@@ -84,3 +88,16 @@ int Game::get_turn()
 {
     return player1 ? 1 : 2;
 }
+
+void Game::printBoards() {
+    vector<vector<char>> p1b = b1->getBoard();
+    vector<vector<char>> p2b = b2->getBoard();
+
+    //width = 11, height = 18 
+    cout << "Level:    " << b1->get_level()->get_level() << "     ";
+    cout << "Level:    " << b2->get_level()->get_level() << endl;
+    cout << "Score:    " << b1->get_score().get_score() << "     ";
+    cout << "Score:    " << b2->get_score().get_score() <<endl;
+    cout << "------------     ------------" << endl; // Top border of the grid
+}
+

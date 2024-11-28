@@ -27,9 +27,10 @@ public:
     // void generateBlock();
     bool has_won();
     void reset();
-    // Board* get_board();
+    //Board* get_board();
     int get_turn();
-    Game(); // initialises the game
+    void printBoards(); 
+    Game(); //initialises the game
 };
 
 #endif
