@@ -21,17 +21,6 @@ class Interpreter {
     bool isRandom;                     // Randomness flag for block generation
     std::unordered_map<std::string, std::function<void()>> commandMap; // Command-to-method map
 
-    //Block* nextBlock;                  // Next block to be spawned
-    //
-    //bool gameOver;                     // Game over status
-
-    // Helper methods
-   // void validateMove(const Block& newBlock);
-
-    
-    //void clearRows();
-    //void lockBlock();
-
     public:
         // Constructor
         Interpreter(Board* b1);
@@ -74,8 +63,12 @@ class Interpreter {
         // i don't think we need setBlock
         //void setBlock(const std::string& blockType);
         //void executeSequence(const std::string& sequenceFile);
-        void executeCommand(Interpreter::Command cmd);
+        
+        void executeCommand(Interpreter::Command cmd, int multiplier = 1);
         void restart();
+        //Command MultiplierCommand(const std::string& command);
+        static std::pair<Command, int> MultiplierCommand(const std::string& input);
+
 
        
 };
