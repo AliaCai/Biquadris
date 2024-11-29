@@ -21,47 +21,47 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
     // Create the game instance
-    Game game{argv[1], argv[2]};
+//     Game game{argv[1], argv[2]};
 
-    // Print initial state of the boards
-    game.printBoards();
+//     // Print initial state of the boards
+//     game.printBoards();
 
-    // Main game loop
-    cout << "Starting the game! Player 1 begins." << endl;
-    while (true) {
-        // Display whose turn it is
-        cout << "Player " << game.get_turn() << "'s turn." << endl;
+//     // Main game loop
+//     cout << "Starting the game! Player 1 begins." << endl;
+//     while (true) {
+//         // Display whose turn it is
+//         cout << "Player " << game.get_turn() << "'s turn." << endl;
 
-        // Allow the player to take their turn
-        game.take_turn();
+//         // Allow the player to take their turn
+//         game.take_turn();
 
-        // Print updated boards
-        game.printBoards();
+//         // Print updated boards
+//         game.printBoards();
 
-        // Check for a win condition
-        if (!game.has_won()) {
-            cout << "Player " << game.get_turn() << " has lost!" << endl;
-            cout << "Game over!" << endl;
-            break;
-        }
-    }
+//         // Check for a win condition
+//         if (!game.has_won()) {
+//             cout << "Player " << game.get_turn() << " has lost!" << endl;
+//             cout << "Game over!" << endl;
+//             break;
+//         }
+//     }
 
-    // Reset the game after it ends (optional)
-    game.reset();
-    return 0;
-}
+//     // Reset the game after it ends (optional)
+//     game.reset();
+//     return 0;
+// }
     /*
-    vector<unique_ptr<Block>> blocks;
+    vector<shared_ptr<Block>> blocks;
 
 
 
-    blocks.push_back(make_unique<IBlock>());
-    blocks.push_back(make_unique<OBlock>());
-    blocks.push_back(make_unique<LBlock>());
-    blocks.push_back(make_unique<SBlock>());
-    blocks.push_back(make_unique<TBlock>());
-    blocks.push_back(make_unique<ZBlock>());
-    blocks.push_back(make_unique<JBlock>());
+    blocks.push_back(make_shared<IBlock>());
+    blocks.push_back(make_shared<OBlock>());
+    blocks.push_back(make_shared<LBlock>());
+    blocks.push_back(make_shared<SBlock>());
+    blocks.push_back(make_shared<TBlock>());
+    blocks.push_back(make_shared<ZBlock>());
+    blocks.push_back(make_shared<JBlock>());
     // Print the initial shape
     for (auto it = blocks.begin(); it != blocks.end(); ++it) {
         char type = (*it)->get_type();
@@ -118,35 +118,36 @@ int main(int argc, char* argv[]) {
 
     // level2 testing---------------------------------
     //cout << "print" << endl;
-    /*
-unique_ptr<Level> level = make_unique<Level2>();
+    
+shared_ptr<Level> level = make_shared<Level2>();
 for (int i = 0; i < 10; i++)
 {
-    unique_ptr<Block> cur_block = level->currentBlock();
+    shared_ptr<Block> cur_block = level->currentBlock();
     level->set_seed(i);
     cout << "i:" << i << " seed:" << level->get_seed() << " block:" << cur_block->get_type() << endl;
 }
-*/
-    /*
+
+    
         // level0 testing---------------------------------
-        unique_ptr<Level> level = make_unique<Level0>("sequence2.txt", 0);
+        shared_ptr<Level> level0 = make_shared<Level0>("sequence2.txt", 0);
 
         for (int i = 0; i < 20; ++i)
         {
-            level->set_count(13);
-            cout << i % 8 << level->currentBlock()->get_type() << " end" << endl;
+            level0->set_count(13);
+            cout << i % 8 << level0->currentBlock()->get_type() << " end" << endl;
         }
-    */
+    
 
-    /*
+    
     //more level0 testing---------------------------------
-    unique_ptr<Block> cur_block = level->currentBlock();
+    shared_ptr<Block> cur_block = level->currentBlock();
     cout << cur_block->get_type() << " end" << endl;
 
     level->set_count(13);
-    unique_ptr<Block> next_block1 = level->currentBlock();
+    shared_ptr<Block> next_block1 = level->currentBlock();
     cout << next_block1->get_type() << " end" << endl;
 
     level->set_count(15);
-    unique_ptr<Block> next_block2 = level->currentBlock();
-    cout << next_block2->get_type() << " end" << endl;*/
+    shared_ptr<Block> next_block2 = level->currentBlock();
+    cout << next_block2->get_type() << " end" << endl;
+}

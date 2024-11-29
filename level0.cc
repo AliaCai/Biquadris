@@ -62,7 +62,7 @@ char Level0::read_file()
     }
 }
 
-unique_ptr<Block> Level0::currentBlock()
+shared_ptr<Block> Level0::currentBlock()
 {
     return createBlock(read_file(), 0);
 }

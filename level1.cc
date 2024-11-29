@@ -46,7 +46,7 @@ char Level1::rand_gen()
 void Level1::set_count(int count) {}
 void Level1::set_fileName(string fileName) {}
 
-unique_ptr<Block> Level1::currentBlock()
+shared_ptr<Block> Level1::currentBlock()
 {
     return createBlock(rand_gen(), 1);
 }

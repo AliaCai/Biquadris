@@ -78,7 +78,7 @@ void Level3::random()
     nonRandomOn = false;
 }
 
-unique_ptr<Block> Level3::currentBlock()
+shared_ptr<Block> Level3::currentBlock()
 {
     if (nonRandomOn)
     {

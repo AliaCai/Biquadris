@@ -16,7 +16,7 @@ public:
     char rand_gen();
     char non_random();
     void random();
-    unique_ptr<Block> currentBlock();
+    shared_ptr<Block> currentBlock();
     Level3(bool, int, std::string);
 };
 
