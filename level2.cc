@@ -50,3 +50,5 @@ shared_ptr<Block> Level2::currentBlock()
     return createBlock(rand_gen(), 2);
 }
 Level2::Level2() : Level{2, 0} {}
+
+
