@@ -6,11 +6,9 @@
 #include "level.h"
 #include "score.h"
 #include "game.h"
-#include "observer.h"
-#include "subject.h"
 
 using namespace std;
-class Board : public Subject
+class Board
 {
     Score score;
     // for levels:
