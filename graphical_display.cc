@@ -4,13 +4,12 @@ using namespace std;
 
 GraphicalDisplay::GraphicalDisplay(vector<shared_ptr<Board>> subject2):
     subject{std::move(subject2)}, w{(11 * 2 + 4) * 20, (18 + 8) * 20} {
-        subject.at(0)->attach(this);
-        subject.at(1)->attach(this);
+       // subject->attach(this);
+        
 }
 
 GraphicalDisplay::~GraphicalDisplay() {
-    subject.at(0)->detach(this);
-    subject.at(1)->detach(this);
+    //subject->detach(this);
 }
 
 void GraphicalDisplay::notify() {
