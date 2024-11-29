@@ -23,5 +23,3 @@ public:
 
 #endif
 
-// Level *L= &Level0(fileName, count);
-// currentBlock= std::move (L->currentBlock());

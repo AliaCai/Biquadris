@@ -182,5 +182,6 @@ int main()
     b1.is_drop_valid();
     info_level(b1);
     b1.is_drop_valid();
-    info_level(b1);
-}
+    info(b1);
+         */
+         
