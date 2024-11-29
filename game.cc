@@ -12,10 +12,6 @@ Game::Game(string fn1, string fn2) : player1{true}, fn1{fn1}, fn2{fn2}
     b2 = make_shared<Board>(fn2);
     interpreter1 = make_shared<Interpreter>(b1.get());
     interpreter2 = make_shared<Interpreter>(b2.get());
-    // td1 = make_unique<TextDisplay>(b1);
-    //gd1 = make_shared<GraphicalDisplay>(b1);
-    // td2 = make_unique<TextDisplay>(b2);
-    //gd2 = make_shared<GraphicalDisplay>(b2);
 
     vector<shared_ptr<Board>> boards = {b1,b2};
     shared_ptr<Observer> gd = make_shared<GraphicalDisplay>(boards);
@@ -29,6 +25,8 @@ void Game::take_turn()
     while(!cin.eof() && cin >> command){
 
         Interpreter::Command cmd;
+        std::pair<Interpreter::Command, int> result = Interpreter::MultiplierCommand(command);
+
 
         if (command == "left")
             cmd = Interpreter::Command::Left;

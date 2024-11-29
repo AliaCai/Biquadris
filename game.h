@@ -15,9 +15,6 @@ class Interpreter;
 
 class Game
 {
-    // Board* b1;
-    // Board* b2;
-
     shared_ptr<Board> b1, b2;
     shared_ptr<Interpreter> interpreter1, interpreter2;
     bool player1;
