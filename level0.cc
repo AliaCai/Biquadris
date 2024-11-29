@@ -57,7 +57,7 @@ char Level0::read_file()
         // cout << "End of file reached. Restarting..." << endl;
         f.close();
         f.open(fileName);
-        count = count % num;
+        count = count - num;
         num = 0;
     }
 }

@@ -21,17 +21,6 @@ class Interpreter {
     bool isRandom;                     // Randomness flag for block generation
     std::unordered_map<std::string, std::function<void()>> commandMap; // Command-to-method map
 
-    //Block* nextBlock;                  // Next block to be spawned
-    //
-    //bool gameOver;                     // Game over status
-
-    // Helper methods
-   // void validateMove(const Block& newBlock);
-
-    
-    //void clearRows();
-    //void lockBlock();
-
     public:
         // Constructor
         Interpreter(Board* b1);
@@ -71,6 +60,7 @@ class Interpreter {
         void levelDown();
         void enableRandom();
         void disableRandom(const std::string& sequenceFile);
+        void setBlock(char type);
         // i don't think we need setBlock
         //void setBlock(const std::string& blockType);
         //void executeSequence(const std::string& sequenceFile);

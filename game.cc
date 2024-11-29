@@ -48,6 +48,21 @@ void Game::take_turn()
             cmd = Interpreter::Command::LevelDown;
         else if (command == "restart")
             cmd = Interpreter::Command::Restart;
+        else if (command == "I") {
+           cmd = Interpreter::Command::I; 
+        } else if (command == "J") {
+           cmd = Interpreter::Command::J; 
+        } else if (command == "L") {
+           cmd = Interpreter::Command::L; 
+        } else if (command == "O") {
+           cmd = Interpreter::Command::O; 
+        } else if (command == "S") {
+           cmd = Interpreter::Command::S; 
+        } else if (command == "T") {
+           cmd = Interpreter::Command::T; 
+        } else if (command == "Z") {
+           cmd = Interpreter::Command::Z; 
+        }
         else if (command == "quit") break;
         else
         {
