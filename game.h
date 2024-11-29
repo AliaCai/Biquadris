@@ -3,7 +3,11 @@
 #include <iostream>
 #include "interpreter.h"
 #include "board.h"
+#include "subject.h"
+#include "graphical_display.h"
+#include "observer.h"
 #include <memory>
+#include <vector>
 using namespace std;
 
 class Board;
@@ -14,15 +18,14 @@ class Game
     // Board* b1;
     // Board* b2;
 
-    unique_ptr<Board> b1, b2;
-    unique_ptr<Interpreter> interpreter1, interpreter2;
+    shared_ptr<Board> b1, b2;
+    shared_ptr<Interpreter> interpreter1, interpreter2;
     bool player1;
     string fn1;
     string fn2;
     // unique_ptr<TextDisplay> td1;
-    // unique_ptr<GraphicsDisplay> gd1;
     // unique_ptr<TextDisplay> td2;
-    // unique_ptr<GraphicalDisplay> gd2;
+    vector<shared_ptr<Observer>> gd;
 
 public:
     void take_turn();
@@ -31,7 +34,8 @@ public:
     void reset();
     //Board* get_board();
     int get_turn();
-    void printBoards(); 
+    void printBoards();
+    vector<vector<char>> blockGrid(char type); 
     Game(string fn1, string fn2); //initialises the game
 };
 

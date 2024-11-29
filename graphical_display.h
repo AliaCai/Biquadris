@@ -4,15 +4,17 @@
 #include "window.h"
 #include "board.h"
 #include <iostream>
+using namespace std;
 
 class GraphicalDisplay: public Observer {
-    Board* subject;
-    int top, bottom, left, right;
-    XWindow w;
+    vector<shared_ptr<Board>> subject;
+    Xwindow w;
 
     public:
-    GraphicalDisplay(Board* subject, int top, int bottom, int left, int right); // constructor
+    GraphicalDisplay(vector<shared_ptr<Board>> subject2); // constructor
     void notify() override;
+    int getColor(char c);
+    vector<vector<char>> blockGrid(char type);
     ~GraphicalDisplay(); // destructor
 };
 
