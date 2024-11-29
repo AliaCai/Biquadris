@@ -75,26 +75,26 @@ void Board::set_level()
 {
     if (get_level_num() == 0)
     {
-        level = make_unique<Level0>(fileName, count);
+        level = make_shared<Level0>(fileName, count);
     }
     else if (get_level_num() == 1)
     {
-        level = make_unique<Level1>();
+        level = make_shared<Level1>();
     }
     else if (get_level_num() == 2)
     {
-        level = make_unique<Level2>();
+        level = make_shared<Level2>();
     }
 }
 void Board::level_up()
 { // 0->1, 1->2
     if (get_level_num() == 0)
     {
-        level = make_unique<Level1>();
+        level = make_shared<Level1>();
     }
     else if (get_level_num() == 1)
     {
-        level = make_unique<Level2>();
+        level = make_shared<Level2>();
     }
 }
 
@@ -102,11 +102,11 @@ void Board::level_down()
 { // 1->0, 2->1
     if (get_level_num() == 1)
     {
-        level = make_unique<Level0>(fileName, count);
+        level = make_shared<Level0>(fileName, count);
     }
     else if (get_level_num() == 2)
     {
-        level = make_unique<Level1>();
+        level = make_shared<Level1>();
     }
 }
 
@@ -132,7 +132,7 @@ void Board::gen_blocks() // level 0-2
     }
 }
 
-void Board::upd_dropped_blocks(unique_ptr<Block> new_dropped_b)
+void Board::upd_dropped_blocks(shared_ptr<Block> new_dropped_b)
 {
     dropped_blocks.emplace_back(std::move(new_dropped_b));
 }
@@ -202,7 +202,7 @@ void Board::restart()
     score.resetScore();
     fileName = "";
     count = 0;
-    level = make_unique<Level0>(fileName, count); // Sampoorna changed from Level to Level0
+    level = make_shared<Level0>(fileName, count); // Sampoorna changed from Level to Level0
     gen_blocks();                                 // update cur_block and next_block
     if (!is_block_valid())
     {
@@ -503,7 +503,7 @@ void Board::clear_lines()
 }
 //------------------------------------------------------------------------------------------------------------
 
-Board::Board(string fn) : score(0, 0), fileName{fn}, count{0}, level(make_unique<Level0>(fn, 0)), board(18, vector<char>(11, '.'))
+Board::Board(string fn) : score(0, 0), fileName{fn}, count{0}, level(make_shared<Level0>(fn, 0)), board(18, vector<char>(11, '.'))
 {
     gen_blocks(); // Update cur_block and next_block
     // if (!is_block_valid())

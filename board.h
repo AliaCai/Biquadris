@@ -18,13 +18,13 @@ class Board : public Subject
     int count; // helper fields
     // int nonRandome;
     //-------------------
-    std::unique_ptr<Level> level; // change to shared pointer if gen_currBlock does not work;
-    std::unique_ptr<Block> cur_block;
-    std::unique_ptr<Block> next_block;
+    std::shared_ptr<Level> level; // change to shared pointer if gen_currBlock does not work;
+    std::shared_ptr<Block> cur_block;
+    std::shared_ptr<Block> next_block;
 
     // boards
     std::vector<std::vector<char>> board;
-    std::vector<std::unique_ptr<Block>> dropped_blocks;
+    std::vector<std::shared_ptr<Block>> dropped_blocks;
 
 public:
     // getter
@@ -47,7 +47,7 @@ public:
     void level_up();   // change level field
     void level_down(); // change level field
     void gen_blocks();
-    void upd_dropped_blocks(unique_ptr<Block> new_dropped_b); // add
+    void upd_dropped_blocks(shared_ptr<Block> new_dropped_b); // add
     void upd_board();                                         // according to the dropped_blocks()
 
     void restart();
