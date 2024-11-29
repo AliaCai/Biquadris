@@ -22,5 +22,3 @@ public:
 
 #endif
 
-// Level *L= &Level3(nonRandomOn, count, fileName);
-// currentBlock= std::move (L->currentBlock());

@@ -372,3 +372,4 @@ for (int i = 0; i < 8; ++i)
     b1.is_drop_valid();
     info(b1);
          */
+         

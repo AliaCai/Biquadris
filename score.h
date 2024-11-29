@@ -15,5 +15,4 @@ public:
     Score(int score, int highscore);
 };
 
-// culmative(cur_level, num_lines, ori_level, num_block);
 #endif

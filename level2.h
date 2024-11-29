@@ -18,5 +18,4 @@ public:
 
 #endif
 
-// Level *L= &Level2();
-// currentBlock= std::move (L->currentBlock());
+
