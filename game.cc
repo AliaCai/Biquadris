@@ -81,11 +81,11 @@ bool Game::has_won()
 {
     if (player1)
     {
-        return b1->is_block_valid();
+        return b1->is_block_valid(b1->get_nB());
     }
     else
     {
-        return b2->is_block_valid();
+        return b2->is_block_valid(b2->get_nB());
     }
 }
 

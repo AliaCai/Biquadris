@@ -96,17 +96,16 @@ void Interpreter::moveDown() {
 void Interpreter::rotateClockwise(){
     //currentBlock->rotateClockwise();
     //board1->is_rotation_valid(&(currentBlock->get_curShape()), currentBlock->get_type());
-    if (board1->is_rotateCW_valid()) {
-        currentBlock->rotateClockwise();
-    }
+    // if (board1->is_rotateCW_valid()) {
+    //     currentBlock->rotateClockwise();
+    // }
+   board1->is_rotateCW_valid();
 }
 
 void Interpreter::rotateCounterClockwise(){
     //currentBlock->rotateCounterClockwise();
     //board1->is_rotation_valid(&(currentBlock->get_curShape()), currentBlock->get_type());
-    if (board1->is_rotateCCW_valid()) {
-        currentBlock->rotateCounterClockwise();
-    }
+    board1->is_rotateCCW_valid(); 
 }
 
 void Interpreter::drop() {

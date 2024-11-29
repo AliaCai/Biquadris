@@ -488,6 +488,7 @@ Board::Board(string fn) : score(0, 0), fileName{fn}, count{0}, level(make_shared
 {
 
     gen_blocks(); // Update cur_block and next_block
+    upd_board();
 }
 
 Board::~Board() = default;

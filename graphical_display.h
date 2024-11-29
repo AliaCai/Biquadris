@@ -6,6 +6,8 @@
 #include <iostream>
 using namespace std;
 
+class Board;
+
 class GraphicalDisplay: public Observer {
     vector<shared_ptr<Board>> subject;
     Xwindow w;
