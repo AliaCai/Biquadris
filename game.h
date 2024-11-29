@@ -22,6 +22,7 @@ class Game: public Subject
     bool player1;
     string fn1;
     string fn2;
+    bool graphics;
     vector<shared_ptr<Observer>> gd;
 
 public:
@@ -31,7 +32,7 @@ public:
     int get_turn();
     void printBoards();
     vector<vector<char>> blockGrid(char type); 
-    Game(string fn1, string fn2); //initialises the game
+    Game(string fn1, string fn2, bool graphics); //initialises the game
 };
 
 #endif

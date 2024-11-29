@@ -72,6 +72,7 @@ vector<vector<int>> Board::get_nextBlock()
 
 vector<vector<char>> Board::getBoard()
 {
+    upd_board();
     return board;
 }
 
@@ -168,21 +169,7 @@ void Board::gen_blocks() // level 0-2
         next_block = level->currentBlock();
     }
 
-    // dropped_blocks
-    /*
-    cout << "START" << endl;
-    for (int i = 0; i < dropped_blocks.size(); ++i)
-    {
-        auto db = dropped_blocks.at(i)->getPosition();
-        for (int i = 0; i < db.size(); ++i)
-        {
-            cout << " pts" << i << ": x: " << db.at(i).at(0) << " y: " << db.at(i).at(1) << endl;
-        }
-        cout << endl;
-    }
-    cout << endl;
-    cout << "END" << endl;
-    */
+    
 }
 
 void Board::upd_dropped_blocks(shared_ptr<Block> new_dropped_b)
@@ -448,7 +435,6 @@ void Board::clear_block_points(int line)
     {
 
         vector<vector<int>> &d_block = dropped_blocks.at(i)->getPosition();
-        int d_b_c = dropped_blocks.at(i)->get_cells_left(); // dropped block cells
         for (int j = 0; j < 4; ++j)                         // loop through all the points of the dropped block
         {
             vector<int> &point = d_block.at(j);

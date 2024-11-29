@@ -18,12 +18,22 @@
 #include <iostream>
 #include <memory>
 #include <vector>
+#include <cstring>
 using namespace std;
 
 int main(int argc, char *argv[])
 {
     // Create the game instance
-    Game game{argv[1], argv[2]};
+    bool graphics = true;
+    for (int i = 1; i < argc; ++i) {
+        if (strcmp(argv[i], "-text") == 0) {
+            graphics = false;
+        }
+    }
+
+    Game game{argv[1], argv[2], graphics};
+    
+    
 
     // Print initial state of the boards
     game.printBoards();

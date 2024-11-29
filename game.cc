@@ -6,15 +6,19 @@
 #include "level0.h"
 using namespace std;
 
-Game::Game(string fn1, string fn2) : player1{true}, fn1{fn1}, fn2{fn2}
+Game::Game(string fn1, string fn2, bool graphics) : player1{true}, fn1{fn1}, fn2{fn2}, graphics{graphics}
 {
     b1 = make_shared<Board>(fn1);
     b2 = make_shared<Board>(fn2);
     interpreter1 = make_shared<Interpreter>(b1.get());
     interpreter2 = make_shared<Interpreter>(b2.get());
-    vector<shared_ptr<Board>> boards = {b1,b2};
-    gd.push_back(make_shared<GraphicalDisplay>(boards)); // Store in the gd vector
-    attach(gd.back().get());
+
+    if (graphics == true) {
+        vector<shared_ptr<Board>> boards = {b1,b2};
+        gd.push_back(make_shared<GraphicalDisplay>(boards)); // Store in the gd vector
+        attach(gd.back().get());
+    }
+    
 }
 
 void Game::take_turn() {
@@ -79,7 +83,10 @@ void Game::take_turn() {
         }
 
         printBoards();
-        //notifyObservers();
+        if (graphics == true) {
+            notifyObservers();
+        }
+        
         if (command == "drop") player1 = !player1;
 
     }
