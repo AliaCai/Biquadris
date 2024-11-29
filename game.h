@@ -10,29 +10,24 @@
 #include <vector>
 using namespace std;
 
+
 class Board;
 class Interpreter;
 
-class Game
+class Game: public Subject
 {
-    // Board* b1;
-    // Board* b2;
 
     shared_ptr<Board> b1, b2;
     shared_ptr<Interpreter> interpreter1, interpreter2;
     bool player1;
     string fn1;
     string fn2;
-    // unique_ptr<TextDisplay> td1;
-    // unique_ptr<TextDisplay> td2;
     vector<shared_ptr<Observer>> gd;
 
 public:
     void take_turn();
-    // void generateBlock();
     bool has_won();
     void reset();
-    //Board* get_board();
     int get_turn();
     void printBoards();
     vector<vector<char>> blockGrid(char type); 

@@ -10,32 +10,6 @@
 #include <string>
 using namespace std;
 
-/*
-Interpreter::Interpreter(Board* b1): board1{b1}, currentBlock{nullptr}, sequenceIndex{0}, isRandom{true} {
-    commandMap = {
-               {"left", moveLeft()},
-               {"right", moveRight()},
-               {"down", moveDown()},        //
-               {"clockwise", rotateClockwise()},
-               {"counterclockwise", rotateCounterClockwise()},
-               {"drop", drop()},        //
-               {"levelup", levelUp()},
-               {"leveldown", levelDown()},
-               {"norandom", Interpreter::norandom},     //
-               {"random", Interpreter::random},         //
-               {"sequence", Interpreter::sequence},
-               {"I", currentBlock{make_unique<IBlock>()}},
-               {"J", currentBlock{make_unique<JBlock>()}},
-               {"L", currentBlock{make_unique<LBlock>()}},
-               {"O", currentBlock{make_unique<OBlock>()}},
-               {"S", currentBlock{make_unique<SBlock>()}},
-               {"T", currentBlock{make_unique<TBlock>()}},
-               {"Z", currentBlock{make_unique<ZBlock>()}},
-               {"restart", restart()}                           //
-    };
-}
-*/
-
 // constructor
 Interpreter::Interpreter(Board* b1)
     : board1{b1}, currentBlock{nullptr}, sequenceIndex{0}, isRandom{true} {}
