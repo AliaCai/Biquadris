@@ -22,7 +22,7 @@ using namespace std;
 
 void print_b(vector<std::vector<int>> pts)
 {
-    for (int i = 0; i < pts.size(); ++i)
+    for (size_t i = 0; i < pts.size(); ++i)
     {
         cout << " pts" << i << ": x: " << pts.at(i).at(0) << " y: " << pts.at(i).at(1) << endl;
     }
@@ -31,10 +31,13 @@ void print_b(vector<std::vector<int>> pts)
 
 void print_dbs(vector<shared_ptr<Block>> dbs)
 {
-    for (int i = 0; i < dbs.size(); ++i)
+    for (size_t i = 0; i < dbs.size(); ++i)
     {
         auto db = dbs.at(i)->getPosition();
+        int db_cells = dbs.at(i)->get_cells_left();
+        cout << " cell_left:" << db_cells << endl;
         print_b(db);
+
         /*
         for (int j = 0; j < dbs.at(i).size(); < ++j)
         {
@@ -88,91 +91,41 @@ int main()
     cout << "print" << endl;
     Board b1{"sequence1.txt"};
     info(b1);
-    int count = 0;
+    b1.is_drop_valid();
     cout << "init--------------------------------------------------------" << endl;
-
-    // testing reach, down,drop
-
-    //  dropped blocks
-    //  db1
-    shared_ptr<Block> jBlock = make_shared<JBlock>(0);
-
-    // b1.set_cb(jBlock);
-    // b1.is_drop_valid();
-    // info(b1);
-
-    for (int i = 0; i < 14; ++i)
-    {
-        jBlock->moveDown();
-        // b1.is_mD_valid();
-        //  b1.is_mR_valid();
-        // b1.reach_bottom();
-    }
-    b1.upd_dropped_blocks(jBlock);
-
-    // db2
-    shared_ptr<Block> iBlock = make_shared<IBlock>(0);
-
-    // b1.set_cb(jBlock);
-    // b1.is_drop_valid();
-    // info(b1);
-
-    for (int i = 0; i < 13; ++i)
-    {
-        iBlock->moveDown();
-    }
-    for (int i = 0; i < 2; ++i)
-    {
-        iBlock->moveRight();
-    }
-    b1.upd_dropped_blocks(iBlock);
-
-    // db3
-    shared_ptr<Block> sBlock = make_shared<SBlock>(0);
-    sBlock->rotateClockwise();
-    for (int i = 0; i < 14; ++i)
-    {
-        sBlock->moveDown();
-    }
     for (int i = 0; i < 7; ++i)
     {
-        sBlock->moveRight();
-    }
-    b1.upd_dropped_blocks(sBlock);
 
-    b1.is_drop_valid();
-
-    b1.is_drop_valid();
-
-    b1.is_drop_valid();
-
-    for (int i = 0; i < 7; ++i)
-    {
-        b1.is_mR_valid();
+        b1.is_drop_valid();
+        info(b1);
     }
 
-    for (int i = 0; i < 7; ++i)
-    {
-        b1.is_mR_valid();
-    }
-    b1.is_drop_valid();
-
-    for (int i = 0; i < 5; ++i)
-    {
-        b1.is_mR_valid();
-    }
-    b1.is_drop_valid();
-
-    for (int i = 0; i < 6; ++i)
-    {
-        b1.is_mR_valid();
-    }
-    b1.is_drop_valid();
-
+    /*
+    b1.clear_block_points(5);
+    b1.clear_blocks();
     info(b1);
-    cout << "CLEARED BLOCK POINTS AOIDSJFAJSDPFKASDF" << endl;
+    b1.clear_block_points(17);
+    b1.clear_blocks();
+    info(b1);
     b1.clear_block_points(16);
+    b1.clear_blocks();
     info(b1);
+    b1.clear_block_points(15);
+    b1.clear_blocks();
+    info(b1);
+    b1.clear_block_points(14);
+    b1.clear_blocks();
+    info(b1);
+    b1.clear_block_points(17);
+    b1.clear_blocks();
+    info(b1);
+    b1.clear_block_points(17);
+    b1.clear_blocks();
+    info(b1);
+    b1.clear_block_points(17);
+    b1.clear_blocks();
+    info(b1);*/
+
     // move down
     /*
     cout << "MOVE DOWN-ASDIUHFIASDIFHO" << endl;
@@ -534,19 +487,116 @@ cout << next_block2->get_type() << " end" << endl;*/
     info(b1);
 
 */
-// FINAL TESTING CLEARS
+// testing clear_block_points, clear_blocks
 /*
-    for (int i = 0; i < 5; ++i)
+//  dropped blocks
+//  db1
+shared_ptr<Block> jBlock = make_shared<JBlock>(0);
+
+// b1.set_cb(jBlock);
+// b1.is_drop_valid();
+// info(b1);
+
+for (int i = 0; i < 14; ++i)
+{
+    jBlock->moveDown();
+    // b1.is_mD_valid();
+    //  b1.is_mR_valid();
+    // b1.reach_bottom();
+}
+b1.upd_dropped_blocks(jBlock);
+
+// db2
+shared_ptr<Block> iBlock = make_shared<IBlock>(0);
+
+// b1.set_cb(jBlock);
+// b1.is_drop_valid();
+// info(b1);
+
+for (int i = 0; i < 13; ++i)
+{
+    iBlock->moveDown();
+}
+for (int i = 0; i < 2; ++i)
+{
+    iBlock->moveRight();
+}
+b1.upd_dropped_blocks(iBlock);
+
+// db3
+shared_ptr<Block> sBlock = make_shared<SBlock>(0);
+sBlock->rotateClockwise();
+for (int i = 0; i < 14; ++i)
+{
+    sBlock->moveDown();
+}
+for (int i = 0; i < 7; ++i)
+{
+    sBlock->moveRight();
+}
+b1.upd_dropped_blocks(sBlock);
+
+b1.is_drop_valid();
+
+b1.is_drop_valid();
+
+b1.is_drop_valid();
+
+for (int i = 0; i < 7; ++i)
+{
+    b1.is_mR_valid();
+}
+
+for (int i = 0; i < 7; ++i)
+{
+    b1.is_mR_valid();
+}
+b1.is_drop_valid();
+
+for (int i = 0; i < 5; ++i)
+{
+    b1.is_mR_valid();
+}
+b1.is_drop_valid();
+
+for (int i = 0; i < 6; ++i)
+{
+    b1.is_mR_valid();
+}
+b1.is_drop_valid();
+
+info(b1);
+for (int i = 0; i < 8; ++i)
+{
+    b1.clear_block_points(17);
+    b1.clear_blocks();
+    info(b1);
+}
+* /
+    // clear line
+    /*
+ for (int i = 0; i < 6; ++i)
     {
         for (int j = 0; j < count; ++j)
         {
-            cout << "RIGHTTTTTTTTTTT" << endl;
+
             b1.is_mR_valid();
         }
         b1.is_drop_valid();
         info(b1);
         count += 2;
     }
-     shared_ptr<Block> iBlock = make_shared<IBlock>(0);
-     db1.set_cur;
-     */
+    b1.is_rotateCW_valid();
+    b1.is_drop_valid();
+    info(b1);
+    b1.restart();
+    info(b1);
+
+    b1.is_drop_valid();
+    info(b1);
+    b1.is_mR_valid();
+    b1.is_mR_valid();
+    b1.is_mR_valid();
+    b1.is_drop_valid();
+    info(b1);
+         */

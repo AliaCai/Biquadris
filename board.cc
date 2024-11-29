@@ -367,7 +367,8 @@ void Board::reach_bottom()
     next_block = level->currentBlock();
     if (!is_block_valid(cur_block))
     {
-        cout << "GAME END" << endl;
+        // cout << "GAME END" << endl;
+        restart();
     }
     upd_board();
 }
@@ -426,23 +427,25 @@ void Board::clear_block_points(int line)
     for (size_t i = 0; i < dropped_blocks.size(); ++i) // loop through all the dropped block
     {
 
-        vector<vector<int>> d_block = dropped_blocks.at(i)->getPosition();
+        vector<vector<int>> &d_block = dropped_blocks.at(i)->getPosition();
         int d_b_c = dropped_blocks.at(i)->get_cells_left(); // dropped block cells
         for (int j = 0; j < 4; ++j)                         // loop through all the points of the dropped block
         {
-            vector<int> point = d_block.at(j);
-            // int x = point.at(0);
+            vector<int> &point = d_block.at(j);
+            int x = point.at(0);
             int y = point.at(1);
 
             if (y == line)
             { // same row as cleared row
+                // cout << "HERE QWIEJQOIJOIJQOERJWOJQWROIE" << endl;
                 point.at(0) = -1;
-                point.at(1) = -1;
-                dropped_blocks.at(i)->set_cells(d_b_c - 1); // update cells_left of the block
+                point.at(1) = -1; // not updated correctly
+                // cout << "Y:" << dropped_blocks.at(i)->getPosition().at(j).at(1) << endl;
+                dropped_blocks.at(i)->set_cells(); // update cells_left of the block
             }
-            else if (y < line)
+            else if (y < line && x != -1)
             { // the blocks on the top of cleared down drop down by 1
-                point.at(1) = point.at(1) - 1;
+                point.at(1) = point.at(1) + 1;
             }
         }
     }

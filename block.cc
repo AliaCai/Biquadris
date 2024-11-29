@@ -5,6 +5,11 @@ Block::Block(char type, const vector<vector<int>> &initialPosition,
              const vector<vector<vector<int>>> &rotations, int level)
     : type(type), curPosition(initialPosition), allRotations(rotations), num_rot(0), cells_left(4), level{level} {}
 
+vector<vector<int>> &Block::getPosition() // Alia adds it, for reference to change point
+{
+    return curPosition;
+}
+
 vector<vector<int>> Block::getPosition() const
 {
     return curPosition;
@@ -54,9 +59,9 @@ int Block::get_level() // Alia adds this
     return level;
 }
 
-void Block::set_cells(int num_cells) // Alia adds this
+void Block::set_cells() // Alia adds this
 {
-    cells_left = num_cells;
+    cells_left = cells_left - 1;
 }
 
 void Block::moveLeft()

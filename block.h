@@ -20,15 +20,15 @@ public:
           const vector<vector<vector<int>>> &rotations, int level);
     virtual ~Block() = default;
     Block(const Block &other);
-
+    vector<vector<int>> &getPosition(); // Alia adds it, for reference to change point
     vector<vector<int>> getPosition() const;
 
     void rotateClockwise();
     void rotateCounterClockwise();
     char get_type() const;
-    int get_cells_left();          // Alia adds this
-    int get_level();               // Alia adds this //make it virtual?
-    void set_cells(int num_cells); // Alia adds this
+    int get_cells_left(); // Alia adds this
+    int get_level();      // Alia adds this //make it virtual?
+    void set_cells();     // Alia adds this
 
     void moveLeft();
     void moveRight();
