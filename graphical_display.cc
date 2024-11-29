@@ -4,12 +4,14 @@ using namespace std;
 
 GraphicalDisplay::GraphicalDisplay(vector<shared_ptr<Board>> subject2):
     subject{std::move(subject2)}, w{(11 * 2 + 4) * 20, (18 + 8) * 20} {
-       // subject->attach(this);
+        subject.at(0)->attach(this);
+        subject.at(1)->attach(this);
         
 }
 
 GraphicalDisplay::~GraphicalDisplay() {
-    //subject->detach(this);
+    subject.at(0)->detach(this);
+    subject.at(1)->detach(this);
 }
 
 void GraphicalDisplay::notify() {
@@ -22,11 +24,11 @@ void GraphicalDisplay::notify() {
 
     // Print levels
     w.drawString(0, 0, "Level: " + std::to_string(subject.at(0)->get_level()->get_level())); // Player 1 Level
-    w.drawString(0, 20, "Level: " + std::to_string(subject.at(1)->get_level()->get_level())); // Player 2 Level
+    w.drawString(100, 0, "Level: " + std::to_string(subject.at(1)->get_level()->get_level())); // Player 2 Level
 
     // Print scores
-    w.drawString(1, 0, "Score: " + std::to_string(subject.at(0)->get_score().get_score())); // Player 1 Score
-    w.drawString(1, 20, "Score: " + std::to_string(subject.at(1)->get_score().get_score())); // Player 2 Score
+    w.drawString(10, 0, "Score: " + std::to_string(subject.at(0)->get_score().get_score())); // Player 1 Score
+    w.drawString(10, 20, "Score: " + std::to_string(subject.at(1)->get_score().get_score())); // Player 2 Score
 
     // Draw the boards row by row
     for (int i = 0; i < rows; ++i) {

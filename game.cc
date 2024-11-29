@@ -13,8 +13,8 @@ Game::Game(string fn1, string fn2) : player1{true}, fn1{fn1}, fn2{fn2}
     interpreter1 = make_shared<Interpreter>(b1.get());
     interpreter2 = make_shared<Interpreter>(b2.get());
     vector<shared_ptr<Board>> boards = {b1,b2};
-    //gd.push_back(make_shared<GraphicalDisplay>(boards)); // Store in the gd vector
-
+    gd.push_back(make_shared<GraphicalDisplay>(boards)); // Store in the gd vector
+    attach(gd.back().get());
 }
 
 void Game::take_turn() {
