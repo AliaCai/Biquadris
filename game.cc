@@ -79,7 +79,7 @@ void Game::take_turn() {
         }
 
         printBoards();
-        notifyObservers();
+        //notifyObservers();
         if (command == "drop") player1 = !player1;
 
     }

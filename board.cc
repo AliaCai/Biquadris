@@ -92,24 +92,31 @@ shared_ptr<Block> Board::get_nB()
 void Board::set_fileName(string newFileName)
 {
     fileName = newFileName;
+    /*
+    if (get_level_num() == 0)
+    {
+        level->set_fileName(newFileName);
+        upd_board();
+    }*/
 }
 
 void Board::set_seed(int newSeed)
 {
     level->set_seed(newSeed);
+    // cout << "PROGRAMMMMMM" << newSeed << endl;
 }
 
-void Board::set_level()
+void Board::set_level(int i)
 {
-    if (get_level_num() == 0)
+    if (i == 0)
     {
         level = make_shared<Level0>(fileName, count);
     }
-    else if (get_level_num() == 1)
+    else if (i == 1)
     {
         level = make_shared<Level1>();
     }
-    else if (get_level_num() == 2)
+    else if (i == 2)
     {
         level = make_shared<Level2>();
     }
@@ -119,6 +126,8 @@ void Board::level_up()
     if (get_level_num() == 0)
     {
         level = make_shared<Level1>();
+
+        // cout << "coount:" << count << endl;
     }
     else if (get_level_num() == 1)
     {
@@ -251,6 +260,8 @@ void Board::restart()
     dropped_blocks.clear();
     std::vector<std::vector<char>> new_board(18, std::vector<char>(11, '.'));
     board = new_board;
+
+    // cout << "res" << endl;
 }
 
 //// functions:------------------------------------------------
@@ -363,7 +374,15 @@ void Board::reach_bottom()
     clear_lines();  // score is updated
     clear_blocks(); // score is updated
 
-    count += 1;
+    if (get_level_num() == 0)
+    {
+        count += 1;
+    }
+    else
+    {
+        count = 0;
+    }
+
     cur_block = std::move(next_block);
     next_block = level->currentBlock();
     if (!is_block_valid(cur_block))
@@ -493,3 +512,4 @@ Board::Board(string fn) : score(0, 0), fileName{fn}, count{0}, level(make_shared
 }
 
 Board::~Board() = default;
+

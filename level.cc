@@ -15,6 +15,7 @@ using namespace std;
 
 Level::Level(int level, int seed = 0) : level{level}, seed{seed}
 {
+    // cout << "LEVEL CREATED" << endl;
 }
 
 int Level::get_seed()
@@ -25,6 +26,7 @@ void Level::set_seed(int newSeed)
 {
     seed = newSeed;
     srand(seed);
+    // cout << "Seed changed" << level << " " << seed << endl;
 }
 int Level::get_level()
 {

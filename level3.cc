@@ -91,3 +91,4 @@ shared_ptr<Block> Level3::currentBlock()
 }
 
 Level3::Level3(bool nonRandomOn = true, int count = 0, string fileName = "") : Level{3}, nonRandomOn{true}, count{count}, fileName{fileName} {}
+
