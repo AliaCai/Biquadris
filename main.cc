@@ -19,9 +19,9 @@
 #include <vector>
 using namespace std;
 
-int main() {
+int main(int argc, char* argv[]) {
     // Create the game instance
-    Game game;
+    Game game{argv[1], argv[2]};
 
     // Print initial state of the boards
     game.printBoards();

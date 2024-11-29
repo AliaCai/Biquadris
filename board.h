@@ -38,6 +38,7 @@ public:
     string get_fileName();
     std::vector<vector<int>> get_curBlock();
     std::vector<vector<int>> get_nextBlock();
+    char getNextType();
 
     // setter
     void set_fileName(string newFileName);

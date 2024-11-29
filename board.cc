@@ -56,6 +56,10 @@ vector<vector<char>> Board::getBoard()
     return board;
 }
 
+char Board::getNextType() {
+    return next_block->get_type();
+}
+
 // setter------------------------------------------------------------
 void Board::set_fileName(string newFileName)
 {
@@ -499,13 +503,13 @@ void Board::clear_lines()
 }
 //------------------------------------------------------------------------------------------------------------
 
-Board::Board(string fn) : score(0, 0), fileName{""}, count{0}, level(make_unique<Level0>(fn, 0)), board(18, vector<char>(11, '.'))
+Board::Board(string fn) : score(0, 0), fileName{fn}, count{0}, level(make_unique<Level0>(fn, 0)), board(18, vector<char>(11, '.'))
 {
     gen_blocks(); // Update cur_block and next_block
-    if (!is_block_valid())
-    {
-        cout << "GAME END" << endl;
-    }
+    // if (!is_block_valid())
+    // {
+    //     cout << "GAME END" << endl;
+    // }
 }
 
 Board::~Board() = default;
