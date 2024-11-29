@@ -1,4 +1,11 @@
 #include "interpreter.h"
+#include "i_block.h"
+#include "o_block.h"
+#include "l_block.h"
+#include "s_block.h"
+#include "t_block.h"
+#include "z_block.h"
+#include "j_block.h"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -65,14 +72,29 @@ void Interpreter::executeCommand(Command cmd) {
         case Command::Random:
             enableRandom();
             break;
-        //case Command::Sequence:
-            // Add sequence handling logic here
-        //    break;
+        case Command::I:
+            setBlock('I');
+            break;
+        case Command::J:
+            setBlock('J');
+            break;
+        case Command::L:
+            setBlock('L');
+            break;
+        case Command::T:
+            setBlock('T');
+            break;
+        case Command::S:
+            setBlock('S');
+            break;
+        case Command::Z:
+            setBlock('Z');
+            break;
+        case Command::O:
+            setBlock('O');
+            break;
         case Command::Restart:
             restart();
-            break;
-        default:
-            // Handle setting blocks
             break;
     }
 }
@@ -106,6 +128,17 @@ void Interpreter::rotateCounterClockwise(){
     //currentBlock->rotateCounterClockwise();
     //board1->is_rotation_valid(&(currentBlock->get_curShape()), currentBlock->get_type());
     board1->is_rotateCCW_valid(); 
+}
+
+void Interpreter::setBlock(char type) {
+    if (type == 'I') board1->set_cb(make_shared<IBlock>(0));
+    if (type == 'J') board1->set_cb(make_shared<JBlock>(0));
+    if (type == 'L') board1->set_cb(make_shared<LBlock>(0));
+    if (type == 'T') board1->set_cb(make_shared<TBlock>(0));
+    if (type == 'S') board1->set_cb(make_shared<SBlock>(0));
+    if (type == 'Z') board1->set_cb(make_shared<ZBlock>(0));
+    if (type == 'O') board1->set_cb(make_shared<OBlock>(0));
+
 }
 
 void Interpreter::drop() {

@@ -48,6 +48,7 @@ int Board::get_level_num()
 void Board::set_cb(shared_ptr<Block> cb) // testing
 {
     cur_block = cb;
+    upd_board();
 }
 void Board::set_nb(shared_ptr<Block> nb) // testing
 {
