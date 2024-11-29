@@ -42,11 +42,11 @@ using namespace std;
 //         // Output the row and column values
 //         std::cout << row << " " << col << std::endl;
 //     }
-    
+
 // }
 
-
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[])
+{
     // Create the game instance
     Game game{argv[1], argv[2]};
 
@@ -55,21 +55,21 @@ int main(int argc, char* argv[]) {
 
     // Main game loop
     cout << "Starting the game! Player 1 begins." << endl;
-        // Display whose turn it is
-        cout << "Player " << game.get_turn() << "'s turn." << endl;
+    // Display whose turn it is
+    cout << "Player " << game.get_turn() << "'s turn." << endl;
 
-        // Allow the player to take their turn
-        game.take_turn();
+    // Allow the player to take their turn
+    game.take_turn();
 
-        // Print updated boards
-        //game.printBoards();
+    // Print updated boards
+    // game.printBoards();
 
-        // Check for a win condition
-        // if (!game.has_won()) {
-        //     cout << "Player " << game.get_turn() << " has lost!" << endl;
-        //     cout << "Game over!" << endl;
-        //     break;
-        // }
+    // Check for a win condition
+    // if (!game.has_won()) {
+    //     cout << "Player " << game.get_turn() << " has lost!" << endl;
+    //     cout << "Game over!" << endl;
+    //     break;
+    // }
     return 0;
 }
 
