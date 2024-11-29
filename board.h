@@ -18,35 +18,44 @@ class Board : public Subject
     int count; // helper fields
     // int nonRandome;
     //-------------------
-    std::unique_ptr<Level> level; // change to shared pointer if gen_currBlock does not work;
-    std::unique_ptr<Block> cur_block;
-    std::unique_ptr<Block> next_block;
+    std::shared_ptr<Level> level; // change to shared pointer if gen_currBlock does not work;
+    std::shared_ptr<Block> cur_block;
+    std::shared_ptr<Block> next_block;
 
     // boards
     std::vector<std::vector<char>> board;
-    std::vector<std::unique_ptr<Block>> dropped_blocks;
+    std::vector<std::shared_ptr<Block>> dropped_blocks;
 
 public:
     // getter
     Score get_score();
     int score_num();
     int get_highscore();
+    int get_count();                               // testing
+    std::vector<std::shared_ptr<Block>> get_dBs(); // testing
     vector<vector<char>> getBoard();
 
     Level *get_level();
     int get_level_num();
     string get_fileName();
     std::vector<vector<int>> get_curBlock();
+    shared_ptr<Block> get_cB(); // Alia
+    shared_ptr<Block> get_nB(); // Alia
     std::vector<vector<int>> get_nextBlock();
+    char getNextType();
 
     // setter
+    // wrok with levels later on---------------------
+    void set_cb(shared_ptr<Block> cb); // testing
+    void set_nb(shared_ptr<Block> nb); // testing
     void set_fileName(string newFileName);
     void set_seed(int newSeed);
     void set_level();
     void level_up();   // change level field
     void level_down(); // change level field
+    //---------------------------------------------------------------
     void gen_blocks();
-    void upd_dropped_blocks(unique_ptr<Block> new_dropped_b); // add
+    void upd_dropped_blocks(shared_ptr<Block> new_dropped_b); // add
     void upd_board();                                         // according to the dropped_blocks()
 
     void restart();
@@ -54,12 +63,12 @@ public:
     // functions:------------------------
     // 3. level3: heavy; level4:add extra blocks
     //------------maybe these 4 can be combined using templates
-    bool is_block_valid(); // true: can have cur_block, false: lose the game
+    bool is_block_valid(shared_ptr<Block> block); // true: can have cur_block, false: lose the game
 
     bool is_mL_valid();
     bool is_mR_valid();
     bool is_rotateCW_valid();
-    bool is_rotateCCW_valid();
+    bool is_rotateCCW_valid(); // REVIEW TMR
     //------------------------------------
     void reach_bottom();
     bool is_mD_valid();

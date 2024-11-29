@@ -17,7 +17,7 @@ public:
     void set_fileName(string fileName) override;
 
     char read_file();
-    virtual unique_ptr<Block> currentBlock() override;
+    virtual shared_ptr<Block> currentBlock() override;
     Level0(std::string, int);
 };
 

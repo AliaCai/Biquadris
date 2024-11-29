@@ -36,47 +36,47 @@ void Level::set_level(int new_level)
     level = new_level;
 }
 
-unique_ptr<Block> Level::createBlock(char type, int level)
+shared_ptr<Block> Level::createBlock(char type, int level)
 {
 
     if (type == 'I')
     {
 
-        unique_ptr<Block> iblock = make_unique<IBlock>(level);
+        shared_ptr<Block> iblock = make_shared<IBlock>(level);
         return iblock;
     }
     else if (type == 'J')
     {
-        unique_ptr<Block> jblock = make_unique<JBlock>(level);
+        shared_ptr<Block> jblock = make_shared<JBlock>(level);
         return jblock;
     }
     else if (type == 'L')
     {
-        unique_ptr<Block> lblock = make_unique<LBlock>(level);
+        shared_ptr<Block> lblock = make_shared<LBlock>(level);
         return lblock;
     }
     else if (type == 'O')
     {
-        unique_ptr<Block> oblock = make_unique<OBlock>(level);
+        shared_ptr<Block> oblock = make_shared<OBlock>(level);
         return oblock;
     }
     else if (type == 'S')
     {
-        unique_ptr<Block> sblock = make_unique<SBlock>(level);
+        shared_ptr<Block> sblock = make_shared<SBlock>(level);
         return sblock;
     }
     else if (type == 'T')
     {
-        unique_ptr<Block> tblock = make_unique<TBlock>(level);
+        shared_ptr<Block> tblock = make_shared<TBlock>(level);
         return tblock;
     }
     else if (type == 'Z')
     {
-        unique_ptr<Block> zblock = make_unique<ZBlock>(level);
+        shared_ptr<Block> zblock = make_shared<ZBlock>(level);
         return zblock;
     }
     else
     {
-        return unique_ptr<Block>(); // null-ptr
+        return shared_ptr<Block>(); // null-ptr
     }
 }

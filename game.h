@@ -17,6 +17,8 @@ class Game
     unique_ptr<Board> b1, b2;
     unique_ptr<Interpreter> interpreter1, interpreter2;
     bool player1;
+    string fn1;
+    string fn2;
     // unique_ptr<TextDisplay> td1;
     // unique_ptr<GraphicsDisplay> gd1;
     // unique_ptr<TextDisplay> td2;
@@ -30,7 +32,7 @@ public:
     //Board* get_board();
     int get_turn();
     void printBoards(); 
-    Game(); //initialises the game
+    Game(string fn1, string fn2); //initialises the game
 };
 
 #endif

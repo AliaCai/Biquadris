@@ -12,7 +12,7 @@ public:
     void set_count(int count) override;          // will not be used
     void set_fileName(string fileName) override; // will not be used
     char rand_gen();
-    unique_ptr<Block> currentBlock() override;
+    shared_ptr<Block> currentBlock() override;
     Level1();
 };
 
