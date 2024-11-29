@@ -49,10 +49,14 @@ public:
     void set_cb(shared_ptr<Block> cb); // testing
     void set_nb(shared_ptr<Block> nb); // testing
     void set_fileName(string newFileName);
+
+    // checking******************************************
     void set_seed(int newSeed);
-    void set_level();
+    void set_level(int i);
     void level_up();   // change level field
     void level_down(); // change level field
+    // checking******************************************
+
     //---------------------------------------------------------------
     void gen_blocks();
     void upd_dropped_blocks(shared_ptr<Block> new_dropped_b); // add
