@@ -72,6 +72,7 @@ vector<vector<int>> Board::get_nextBlock()
 
 vector<vector<char>> Board::getBoard()
 {
+    upd_board();
     return board;
 }
 
