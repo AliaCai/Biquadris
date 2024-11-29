@@ -26,6 +26,15 @@ int Board::get_highscore()
     return score.get_highScore();
 }
 
+int Board::get_count()
+{
+    return count;
+}
+
+vector<shared_ptr<Block>> Board::get_dBs()
+{
+    return dropped_blocks;
+}
 Level *Board::get_level()
 {
     return level.get();
@@ -34,6 +43,15 @@ Level *Board::get_level()
 int Board::get_level_num()
 {
     return level->get_level();
+}
+
+void Board::set_cb(shared_ptr<Block> cb) // testing
+{
+    cur_block = cb;
+}
+void Board::set_nb(shared_ptr<Block> nb) // testing
+{
+    next_block = nb;
 }
 
 string Board::get_fileName()
@@ -56,10 +74,19 @@ vector<vector<char>> Board::getBoard()
     return board;
 }
 
-char Board::getNextType() {
+char Board::getNextType()
+{
     return next_block->get_type();
 }
 
+shared_ptr<Block> Board::get_cB()
+{ // Alia
+    return cur_block;
+}
+shared_ptr<Block> Board::get_nB()
+{
+    return next_block;
+}
 // setter------------------------------------------------------------
 void Board::set_fileName(string newFileName)
 {
@@ -130,6 +157,22 @@ void Board::gen_blocks() // level 0-2
         cur_block = level->currentBlock();
         next_block = level->currentBlock();
     }
+
+    // dropped_blocks
+    /*
+    cout << "START" << endl;
+    for (int i = 0; i < dropped_blocks.size(); ++i)
+    {
+        auto db = dropped_blocks.at(i)->getPosition();
+        for (int i = 0; i < db.size(); ++i)
+        {
+            cout << " pts" << i << ": x: " << db.at(i).at(0) << " y: " << db.at(i).at(1) << endl;
+        }
+        cout << endl;
+    }
+    cout << endl;
+    cout << "END" << endl;
+    */
 }
 
 void Board::upd_dropped_blocks(shared_ptr<Block> new_dropped_b)
@@ -200,23 +243,20 @@ void Board::upd_board()
 void Board::restart()
 {
     score.resetScore();
-    fileName = "";
+    fileName = fileName; // KEEP FILENAME FOR NOW
     count = 0;
     level = make_shared<Level0>(fileName, count); // Sampoorna changed from Level to Level0
     gen_blocks();                                 // update cur_block and next_block
-    if (!is_block_valid())
-    {
-        cout << "GAME END" << endl;
-    }
     dropped_blocks.clear();
     std::vector<std::vector<char>> new_board(18, std::vector<char>(11, '.'));
     board = new_board;
 }
 
 //// functions:------------------------------------------------
-bool Board::is_block_valid() // game over method
+bool Board::is_block_valid(shared_ptr<Block> block) // game over method
 {
-    vector<vector<int>> pts_forshadow = cur_block->getPosition();
+    vector<vector<int>> pts_forshadow = block->getPosition();
+    // cout << "type" << block->get_type() << endl;
     for (auto i = 0; i < 4; ++i) // loop through each point
     {
 
@@ -225,146 +265,99 @@ bool Board::is_block_valid() // game over method
         size_t x = point.at(0);
         size_t y = point.at(1);
 
-        for (size_t a = 0; a < board.size(); ++a)
+        if (x >= 11 || y >= 18)
         {
-            vector<char> line = board.at(a);
-            for (size_t b = 0; b < line.size(); ++b)
+
+            return false;
+        }
+
+        // cout << "pts" << i << ": x " << x << " y: " << y << endl;
+
+        for (size_t b = 0; b < dropped_blocks.size(); ++b) // loop through each block
+        {
+            vector<vector<int>> block = dropped_blocks.at(b)->getPosition();
+            for (size_t p = 0; p < 4; ++p) // loop through each block
             {
-                if (a == y && b == x) // the cell equals to the point //reach bottom
+                size_t a = block.at(p).at(0);
+                size_t b = block.at(p).at(1);
+                // cout << "BOARD: " << "pts" << i << ":( x: " << a << ",y:" << b << ")";
+
+                if (a == x && b == y)
                 {
-                    return false; // the game end
+                    return false; // is not a valid block
                 }
             }
         }
+        // cout << endl;
+        //<< "1 point checked" << endl;
     }
-    upd_board();
+    upd_board(); // think about it later on
     return true;
 }
 bool Board::is_mL_valid()
 {
-    vector<vector<int>> pts_forshadow = cur_block->p_after_left();
-    for (auto i = 0; i < 4; ++i) // loop through each point
+    shared_ptr<Block> pts_forshadow = cur_block->p_after_left();
+    if (is_block_valid(pts_forshadow))
     {
-
-        vector<int> point = pts_forshadow.at(i);
-
-        size_t x = point.at(0);
-        size_t y = point.at(1);
-
-        for (size_t a = 0; a < board.size(); ++a)
-        {
-            vector<char> line = board.at(a);
-            for (size_t b = 0; b < line.size(); ++b)
-            {
-                if (a == y && b == x) // the cell equals to the point
-                {
-                    return false;
-                }
-            }
-        }
+        cur_block->moveLeft();
+        upd_board();
+        return true;
     }
 
-    cur_block->moveLeft(); // the points are not occupied
     // notifyObservers();
-    upd_board();
-    return true;
+    return false;
 }
 
 bool Board::is_mR_valid()
 {
-    vector<vector<int>> pts_forshadow = cur_block->p_after_right();
-    for (auto i = 0; i < 4; ++i) // loop through each point
+    shared_ptr<Block> pts_forshadow = cur_block->p_after_right();
+    if (is_block_valid(pts_forshadow))
     {
-
-        vector<int> point = pts_forshadow.at(i);
-
-        size_t x = point.at(0);
-        size_t y = point.at(1);
-
-        for (size_t a = 0; a < board.size(); ++a)
-        {
-            vector<char> line = board.at(a);
-            for (size_t b = 0; b < line.size(); ++b)
-            {
-                if (a == y && b == x) // the cell equals to the point
-                {
-                    return false;
-                }
-            }
-        }
+        cur_block->moveRight();
+        upd_board();
+        return true;
     }
 
-    cur_block->moveRight(); // the points are not occupied
     // notifyObservers();
-    upd_board();
-    return true;
+
+    return false;
 }
 
 bool Board::is_rotateCW_valid()
 {
-    vector<vector<int>> pts_forshadow = cur_block->p_after_rotateCW();
-    for (auto i = 0; i < 4; ++i) // loop through each point
+    shared_ptr<Block> pts_forshadow = cur_block->p_after_rotateCW();
+    if (is_block_valid(pts_forshadow))
     {
-
-        vector<int> point = pts_forshadow.at(i);
-
-        size_t x = point.at(0);
-        size_t y = point.at(1);
-
-        for (size_t a = 0; a < board.size(); ++a)
-        {
-            vector<char> line = board.at(a);
-            for (size_t b = 0; b < line.size(); ++b)
-            {
-                if (a == y && b == x) // the cell equals to the point
-                {
-                    return false;
-                }
-            }
-        }
+        cur_block->rotateClockwise();
+        upd_board();
+        return true;
     }
 
-    cur_block->rotateClockwise(); // the points are not occupied
     // notifyObservers();
-    upd_board();
-    return true;
+
+    return false;
 }
 
 bool Board::is_rotateCCW_valid()
 {
-    vector<vector<int>> pts_forshadow = cur_block->p_after_rotateCCW();
-    for (auto i = 0; i < 4; ++i) // loop through each point
+    shared_ptr<Block> pts_forshadow = cur_block->p_after_rotateCCW();
+    if (is_block_valid(pts_forshadow))
     {
-
-        vector<int> point = pts_forshadow.at(i);
-
-        size_t x = point.at(0);
-        size_t y = point.at(1);
-
-        for (size_t a = 0; a < board.size(); ++a)
-        {
-            vector<char> line = board.at(a);
-            for (size_t b = 0; b < line.size(); ++b)
-            {
-                if (a == y && b == x) // the cell equals to the point
-                {
-                    return false;
-                }
-            }
-        }
+        cur_block->rotateCounterClockwise();
+        upd_board();
+        return true;
     }
 
-    cur_block->rotateCounterClockwise(); // the points are not occupied
-                                         // notifyObservers();
-    upd_board();
+    // notifyObservers();
 
-    return true;
+    return false;
 }
 
 //------------------------------------------------------------------------------------------------
 void Board::reach_bottom()
 {
-    upd_dropped_blocks(std::move(cur_block));
+    // cout << "BOTTOM---------233409258098234905842-5390-" << endl;
+    upd_dropped_blocks(cur_block);
     upd_board();
     clear_lines();  // score is updated
     clear_blocks(); // score is updated
@@ -372,7 +365,7 @@ void Board::reach_bottom()
     count += 1;
     cur_block = std::move(next_block);
     next_block = level->currentBlock();
-    if (!is_block_valid())
+    if (!is_block_valid(cur_block))
     {
         cout << "GAME END" << endl;
     }
@@ -381,33 +374,18 @@ void Board::reach_bottom()
 
 bool Board::is_mD_valid()
 {
-    vector<vector<int>> pts_forshadow = cur_block->p_after_down();
-    for (auto i = 0; i < 4; ++i) // loop through each point
+    shared_ptr<Block> pts_forshadow = cur_block->p_after_down();
+
+    if (is_block_valid(pts_forshadow))
     {
-
-        vector<int> point = pts_forshadow.at(i);
-
-        size_t x = point.at(0);
-        size_t y = point.at(1);
-
-        for (size_t a = 0; a < board.size(); ++a)
-        {
-            vector<char> line = board.at(a);
-            for (size_t b = 0; b < line.size(); ++b)
-            {
-                if (a == y && b == x) // the cell equals to the point //reach bottom
-                {
-                    reach_bottom();
-                    return false;
-                }
-            }
-        }
+        cur_block->moveDown();
+        upd_board();
+        return true;
     }
 
-    cur_block->moveDown(); // cur_block points is updated
-    upd_board();
-
-    return true;
+    // notifyObservers();
+    reach_bottom(); //-----TEST
+    return false;
 }
 
 bool Board::is_drop_valid()
@@ -462,7 +440,7 @@ void Board::clear_block_points(int line)
                 point.at(1) = -1;
                 dropped_blocks.at(i)->set_cells(d_b_c - 1); // update cells_left of the block
             }
-            else if (y > line)
+            else if (y < line)
             { // the blocks on the top of cleared down drop down by 1
                 point.at(1) = point.at(1) - 1;
             }
@@ -503,13 +481,10 @@ void Board::clear_lines()
 }
 //------------------------------------------------------------------------------------------------------------
 
-Board::Board(string fn) : score(0, 0), fileName{fn}, count{0}, level(make_shared<Level0>(fn, 0)), board(18, vector<char>(11, '.'))
+Board::Board(string fn) : score(0, 0), fileName{fn}, count{0}, level(make_shared<Level0>(fn, 0)), board(18, vector<char>(11, '.')), dropped_blocks{}
 {
+
     gen_blocks(); // Update cur_block and next_block
-    // if (!is_block_valid())
-    // {
-    //     cout << "GAME END" << endl;
-    // }
 }
 
 Board::~Board() = default;
